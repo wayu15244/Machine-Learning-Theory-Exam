@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Machine Learning Theory & Interactive Visualizations | Midterm Exam</title>
+  <title>Machine Learning Interactive Visualizations | Hallmark & AntV Edition</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- AntV G2 v5 CDN -->
+  <script src="https://unpkg.com/@antv/g2@5/dist/g2.min.js"></script>
+
   <!-- KaTeX for Math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -28,8 +31,8 @@
             mono: ['"Fira Code"', 'monospace'],
           },
           colors: {
-            paper: '#faf9f6',
-            ink: '#111827',
+            paper: '#fcfbf9',
+            ink: '#0f172a',
             brand: {
               50: '#fff7ed',
               100: '#ffedd5',
@@ -38,10 +41,9 @@
               700: '#9a3412',
             },
             accent: {
-              blue: '#1d4ed8',
-              emerald: '#047857',
+              blue: '#1e40af',
+              emerald: '#065f46',
               amber: '#b45309',
-              slate: '#334155',
             }
           }
         }
@@ -50,50 +52,59 @@
   </script>
 
   <style>
+    /* Hallmark Discipline: Tactile, Editorial, High Contrast */
     body {
       background-color: #f8fafc;
       color: #1e293b;
+      overflow-x: clip;
     }
-    .canvas-container {
-      background: radial-gradient(#e2e8f0 1px, transparent 1px);
-      background-size: 20px 20px;
+    .canvas-grid {
+      background: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
     }
     .tab-active {
-      border-color: #c2410c;
+      border-bottom: 2.5px solid #c2410c;
       color: #c2410c;
-      font-weight: 600;
+      font-weight: 700;
       background-color: #fff7ed;
+    }
+    .btn-tactile {
+      transition: transform 0.08s ease-out, background-color 0.15s ease-out;
+    }
+    .btn-tactile:active {
+      transform: translateY(1.5px);
     }
     .badge {
       display: inline-flex;
       align-items: center;
-      padding: 0.15rem 0.6rem;
+      padding: 0.2rem 0.65rem;
       border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
   </style>
 </head>
 <body class="font-sans antialiased selection:bg-brand-100 selection:text-brand-700">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200 shadow-sm">
+  <!-- Top Global Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-lg bg-brand-600 text-white flex items-center justify-center font-display font-black text-xl shadow">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center font-display font-black text-xl shadow-md border border-slate-700">
           ML
         </div>
         <div>
-          <h1 class="text-base sm:text-lg font-bold font-display text-slate-900 leading-tight">
-            Theory Part - Machine Learning
+          <h1 class="text-base sm:text-lg font-extrabold font-display text-slate-900 tracking-tight leading-none">
+            Machine Learning Visual Studio
           </h1>
-          <p class="text-xs text-slate-500 font-normal">
-            สอบ Midterm วิชา Machine Learning | อาจารย์ ดร. โอฬาริก สุรินต๊ะ
+          <p class="text-xs text-slate-500 font-normal mt-0.5">
+            สรุปทฤษฎี & ปฏิสัมพันธ์แบบเห็นภาพจริง | อ. ดร. โอฬาริก สุรินต๊ะ
           </p>
         </div>
       </div>
       
-      <!-- Nav Tabs -->
+      <!-- Desktop Navigation Tabs -->
       <nav class="hidden md:flex space-x-1 border border-slate-200 p-1 rounded-xl bg-slate-50 text-sm">
         <button onclick="switchTab('knn-cls')" id="tab-btn-knn-cls" class="px-3.5 py-1.5 rounded-lg transition-colors tab-active">
           1. KNN Classification
@@ -105,14 +116,14 @@
           3. K-Means Clustering
         </button>
         <button onclick="switchTab('report-summary')" id="tab-btn-report-summary" class="px-3.5 py-1.5 rounded-lg transition-colors text-slate-600 hover:text-slate-900 flex items-center gap-1">
-          <span>📄 สรุปรายงาน & สมาชิก</span>
+          <span>👥 สมาชิกกลุ่ม & สรุป</span>
         </button>
       </nav>
 
       <div class="flex items-center space-x-2">
-        <a href="Machine_Learning_Theory_Exam.pdf" target="_blank" class="inline-flex items-center space-x-1 text-xs font-semibold px-3 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span>ดาวน์โหลด PDF</span>
+        <a href="Machine_Learning_Theory_Exam.pdf" target="_blank" class="btn-tactile inline-flex items-center space-x-1.5 text-xs font-bold px-3.5 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>ดาวน์โหลดรายงาน PDF (8 หน้า)</span>
         </a>
       </div>
     </div>
@@ -120,170 +131,122 @@
 
   <!-- Mobile Tab Bar -->
   <div class="md:hidden bg-white border-b border-slate-200 px-3 py-2 flex space-x-1 overflow-x-auto text-xs">
-    <button onclick="switchTab('knn-cls')" id="m-tab-btn-knn-cls" class="px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap tab-active">KNN Classify</button>
-    <button onclick="switchTab('knn-reg')" id="m-tab-btn-knn-reg" class="px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">KNN Regress</button>
-    <button onclick="switchTab('kmeans')" id="m-tab-btn-kmeans" class="px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">K-Means</button>
-    <button onclick="switchTab('report-summary')" id="m-tab-btn-report-summary" class="px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">รายงาน & กลุ่ม</button>
+    <button onclick="switchTab('knn-cls')" id="m-tab-btn-knn-cls" class="px-3 py-1.5 rounded-lg font-medium whitespace-nowrap tab-active">1. KNN Classify</button>
+    <button onclick="switchTab('knn-reg')" id="m-tab-btn-knn-reg" class="px-3 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">2. KNN Regress</button>
+    <button onclick="switchTab('kmeans')" id="m-tab-btn-kmeans" class="px-3 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">3. K-Means</button>
+    <button onclick="switchTab('report-summary')" id="m-tab-btn-report-summary" class="px-3 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600">สมาชิก & สรุป</button>
   </div>
 
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
     <!-- ================================================================= -->
     <!-- SECTION 1: KNN CLASSIFICATION -->
     <!-- ================================================================= -->
-    <section id="sec-knn-cls" class="space-y-8">
-      <!-- Header Banner -->
+    <section id="sec-knn-cls" class="space-y-6">
+      
+      <!-- Headline & Intuitive Metaphor Banner (Hallmark Editorial) -->
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 mb-3">
-            <span class="badge bg-amber-100 text-amber-800">Supervised Learning</span>
-            <span class="badge bg-slate-100 text-slate-700">Instance-Based / Lazy Learning</span>
-            <span class="badge bg-orange-100 text-orange-800">คะแนนเต็ม 5 คะแนน</span>
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="badge bg-amber-100 text-amber-900">Supervised Learning</span>
+            <span class="badge bg-slate-100 text-slate-700">Instance-Based (Lazy Learning)</span>
+            <span class="badge bg-orange-100 text-orange-900 font-bold">5 คะแนน</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
-            1. K-Nearest Neighbor (KNN) Classification
-          </h2>
-          <p class="mt-2 text-slate-600 leading-relaxed text-sm sm:text-base">
-            เป็นอัลกอริทึมจำแนกประเภทข้อมูลที่อาศัยหลักการพื้นฐาน <strong class="text-slate-900">"สิ่งที่คล้ายกันมักจะอยู่ใกล้กัน" (Things that are similar are close to each other)</strong> จัดอยู่ในกลุ่ม <em>Lazy Learning</em> เนื่องจากไม่มีขั้นตอนการเทรนสร้างแบบจำลองล่วงหน้า แต่จะจดจำชุดข้อมูลทั้งหมดไว้ แล้วจึงคำนวณระยะห่างเพื่อค้นหาเพื่อนบ้าน $K$ ตัวที่ใกล้ที่สุดเมื่อมีข้อมูลใหม่เข้ามา
-          </p>
+          <span class="text-xs text-slate-500 font-mono">Algorithm 1 of 3</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
+          1. K-Nearest Neighbor (KNN) Classification
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed max-w-4xl">
+          จำแนกประเภทข้อมูลโดยอาศัยหลักการ <strong>"สิ่งที่คล้ายกันมักจะอยู่ใกล้กัน" (Things that are similar are close to each other)</strong> โดยไม่มีการสร้างโมเดลล่วงหน้า แต่จะคำนวณหาระยะทางระหว่างจุดใหม่กับจุดในอดีตทั้งหมด เพื่อเลือกเพื่อนบ้านที่ใกล้ที่สุด $K$ ตัวมาออกเสียงโหวต
+        </p>
+
+        <!-- ELI5 Metaphor Card for Beginners -->
+        <div class="mt-5 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
+          <div class="text-2xl flex-shrink-0">🏡</div>
+          <div class="text-xs sm:text-sm text-amber-950 leading-relaxed">
+            <strong class="font-bold text-amber-900 block text-sm mb-0.5">💡 เปรียบเทียบให้เข้าใจง่ายใน 1 นาที (สำหรับผู้เริ่มต้น):</strong>
+            สมมติคุณย้ายเข้ามาอยู่ในหมู่บ้านใหม่ แล้วสงสัยว่าแถวนี้ <em>"ต้องทิ้งขยะวันไหน?"</em> คุณไม่จำเป็นต้องอ่านตำรากฎหมายทั้งเล่ม คุณแค่เดินไปถาม <strong>เพื่อนบ้านที่อยู่ใกล้บ้านคุณที่สุด 3 หลัง (K=3)</strong> ถ้า 2 ใน 3 หลังตอบว่า <em>"วันอังคาร"</em> คุณก็จะมั่นใจและทิ้งขยะวันอังคารตามเพื่อนบ้านเสียงข้างมาก! นี่คือวิธีการทำงานของ KNN Classification
+          </div>
         </div>
       </div>
 
-      <!-- Theory Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider flex items-center gap-2 text-brand-600">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            กระบวนการทำงาน 6 ขั้นตอน
-          </h3>
-          <ol class="mt-3 space-y-1.5 text-xs text-slate-600 list-decimal list-inside font-mono">
-            <li>Input New Sample (รับจุดทดสอบ $x$)</li>
-            <li>Calculate Distance ($d(x, x_i)$ ทุกจุด)</li>
-            <li>Sort Distance (เรียงน้อย $\rightarrow$ มาก)</li>
-            <li>Select K Nearest (เลือก $K$ ตัวแรก)</li>
-            <li>Majority Vote / Weighted Vote</li>
-            <li>Prediction (กำหนดคลาสที่ชนะ)</li>
-          </ol>
-        </div>
-
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider flex items-center gap-2 text-accent-blue">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-            การวัดระยะทาง (Distance Metrics)
-          </h3>
-          <div class="mt-3 space-y-2 text-xs text-slate-700">
-            <div>
-              <strong>Euclidean Distance:</strong>
-              <div class="text-[11px] font-mono bg-slate-50 p-1.5 rounded border border-slate-200 mt-0.5">
-                \( d(x, y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2} \)
-              </div>
-            </div>
-            <div>
-              <strong>Manhattan Distance:</strong>
-              <div class="text-[11px] font-mono bg-slate-50 p-1.5 rounded border border-slate-200 mt-0.5">
-                \( d(x, y) = \sum_{i=1}^n |x_i - y_i| \)
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider flex items-center gap-2 text-accent-emerald">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-            อิทธิพลของค่า K (K-Value Effect)
-          </h3>
-          <ul class="mt-3 space-y-2 text-xs text-slate-600">
-            <li class="flex items-start gap-1.5">
-              <span class="text-orange-600 font-bold">• K ขนาดเล็ก:</span>
-              <span>ยืดหยุ่นสูง (Flexible) ขอบเขตซับซ้อน แต่ไวต่อสัญญาณรบกวนมาก (Noise Sensitive / Overfitting)</span>
-            </li>
-            <li class="flex items-start gap-1.5">
-              <span class="text-blue-600 font-bold">• K ขนาดใหญ่:</span>
-              <span>เสถียร (Stable) ลดผลกระทบของ Noise แต่ขอบเขตอาจเรียบเกินไป (Underfitting)</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE VISUALIZATION 1: KNN CLASSIFIER PLAYGROUND -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
-        <div class="p-4 sm:p-6 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+      <!-- MAIN INTERACTIVE STUDIO: Canvas + AntV G2 Live Proximity -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+        <!-- Control Header Bar -->
+        <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/80 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="inline-block w-3 h-3 rounded-full bg-brand-500 animate-pulse"></span>
-              <h3 class="font-bold text-lg font-display text-slate-900">
-                Interactive Visualization: KNN Classification Playground
-              </h3>
-            </div>
+            <h3 class="font-bold text-base font-display text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-ping"></span>
+              ผืนผ้าใบจำลองแบบตอบสนองทันที (Interactive 2D Canvas)
+            </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              คลิกบนผืนผ้าใบเพื่อย้ายจุดทดสอบ (Query Point) หรือเพิ่มจุดข้อมูลใหม่ และปรับตั้งค่าเพื่อดูผลแบบ Real-time
+              คลิกเพื่อเลื่อนจุดทดสอบ (Query Point ★) หรือดับเบิ้ลคลิกเพื่อเพิ่มข้อมูลฝึกฝนใหม่
             </p>
           </div>
 
           <!-- Dataset Presets -->
           <div class="flex items-center gap-2 text-xs">
-            <span class="text-slate-500 font-medium">ชุดข้อมูลตัวอย่าง:</span>
-            <button onclick="loadKnnDataset('slide')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              สไลด์ อ.โอฬาริก (จุด A-E)
+            <span class="text-slate-500 font-semibold">ชุดข้อมูล:</span>
+            <button onclick="loadKnnDataset('slide')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              โจทย์สไลด์ อ.โอฬาริก (จุด A-E)
             </button>
-            <button onclick="loadKnnDataset('multiclass')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              3 คลาส (15 จุด สไลด์หน้า 24)
+            <button onclick="loadKnnDataset('multiclass')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              3 คลาส (สไลด์หน้า 24)
             </button>
-            <button onclick="resetKnnPoints()" class="px-2.5 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-md font-semibold hover:bg-rose-100 transition">
+            <button onclick="resetKnnPoints()" class="btn-tactile px-2.5 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-lg font-semibold hover:bg-rose-100">
               ล้างจุด
             </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
-          <!-- Canvas Area (Left 7 Cols) -->
-          <div class="lg:col-span-7 p-4 sm:p-6 flex flex-col items-center justify-center bg-slate-50/50">
-            <div class="relative w-full aspect-square max-w-[500px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden canvas-container">
-              <canvas id="knn-canvas" width="500" height="500" class="w-full h-full cursor-crosshair"></canvas>
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+          <!-- Left: 2D Interactive Canvas -->
+          <div class="lg:col-span-7 p-5 bg-slate-50/40 flex flex-col items-center justify-center">
+            <div class="relative w-full aspect-square max-w-[480px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden canvas-grid">
+              <canvas id="knn-canvas" width="480" height="480" class="w-full h-full cursor-crosshair"></canvas>
             </div>
-            <div class="w-full max-w-[500px] mt-3 flex items-center justify-between text-xs text-slate-500">
+            <!-- Canvas Legend -->
+            <div class="w-full max-w-[480px] mt-3 flex items-center justify-between text-xs text-slate-600">
               <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#e63946] inline-block"></span> Class A</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#1d3557] inline-block"></span> Class B</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#2a9d8f] inline-block"></span> Class C</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3.5 h-3.5 text-amber-500 inline-flex items-center justify-center font-black">★</span> Query</span>
+                <span class="inline-flex items-center gap-1.5 font-medium"><span class="w-3 h-3 rounded-full bg-[#dc2626]"></span> Class A</span>
+                <span class="inline-flex items-center gap-1.5 font-medium"><span class="w-3 h-3 rounded-full bg-[#1e40af]"></span> Class B</span>
+                <span class="inline-flex items-center gap-1.5 font-medium"><span class="w-3 h-3 rounded-full bg-[#059669]"></span> Class C</span>
+                <span class="inline-flex items-center gap-1 font-bold text-amber-500">★ จุดทดสอบ (Query)</span>
               </div>
-              <span>คลิกเพื่อย้าย Query / ดับเบิ้ลคลิกเพื่อเพิ่มจุด</span>
             </div>
           </div>
 
-          <!-- Controls & Live Calculation (Right 5 Cols) -->
-          <div class="lg:col-span-5 p-4 sm:p-6 space-y-5 bg-white">
-            <!-- Controls -->
-            <div class="space-y-4">
+          <!-- Right: Controls + Real-time AntV Proximity Chart + Voting -->
+          <div class="lg:col-span-5 p-5 space-y-4 bg-white flex flex-col justify-between">
+            <!-- Controls Grid -->
+            <div class="space-y-3">
               <div>
-                <div class="flex justify-between text-xs font-semibold text-slate-700">
+                <div class="flex justify-between text-xs font-bold text-slate-800">
                   <label for="knn-k-slider">จำนวนเพื่อนบ้าน K:</label>
                   <span id="knn-k-val" class="font-mono text-brand-600 text-sm">3</span>
                 </div>
-                <input id="knn-k-slider" type="range" min="1" max="11" step="2" value="3" class="w-full mt-1.5 accent-brand-600" oninput="updateKnn()">
+                <input id="knn-k-slider" type="range" min="1" max="11" step="2" value="3" class="w-full mt-1.5 accent-brand-600 cursor-pointer" oninput="updateKnn()">
                 <div class="flex justify-between text-[10px] text-slate-400 font-mono mt-0.5">
-                  <span>K=1</span>
-                  <span>K=3</span>
+                  <span>K=1 (ละเอียด/ไวต่อ Noise)</span>
                   <span>K=5</span>
-                  <span>K=7</span>
-                  <span>K=9</span>
-                  <span>K=11</span>
+                  <span>K=11 (เสถียร/ขอบเขตเรียบ)</span>
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <label class="font-semibold text-slate-700 block mb-1">การคำนวณโหวต:</label>
-                  <select id="knn-vote-mode" onchange="updateKnn()" class="w-full border border-slate-300 rounded-lg p-2 bg-slate-50 text-slate-800 font-medium focus:ring-2 focus:ring-brand-500">
-                    <option value="majority">Majority Vote (เสียงข้างมาก)</option>
-                    <option value="weighted">Weighted Vote (\(w=1/d^2\))</option>
+                  <label class="font-bold text-slate-700 block mb-1">ระบบการตัดสินใจ:</label>
+                  <select id="knn-vote-mode" onchange="updateKnn()" class="w-full border border-slate-300 rounded-lg p-2 bg-slate-50 text-slate-800 font-medium text-xs focus:ring-2 focus:ring-brand-500">
+                    <option value="majority">Majority Vote (1 จุด = 1 เสียง)</option>
+                    <option value="weighted">Weighted Vote (ถ่วงน้ำหนัก 1/d²)</option>
                   </select>
                 </div>
                 <div>
-                  <label class="font-semibold text-slate-700 block mb-1">ฟังก์ชันระยะห่าง:</label>
-                  <select id="knn-dist-metric" onchange="updateKnn()" class="w-full border border-slate-300 rounded-lg p-2 bg-slate-50 text-slate-800 font-medium focus:ring-2 focus:ring-brand-500">
+                  <label class="font-bold text-slate-700 block mb-1">สูตรวัดระยะทาง:</label>
+                  <select id="knn-dist-metric" onchange="updateKnn()" class="w-full border border-slate-300 rounded-lg p-2 bg-slate-50 text-slate-800 font-medium text-xs focus:ring-2 focus:ring-brand-500">
                     <option value="euclidean">Euclidean Distance</option>
                     <option value="manhattan">Manhattan Distance</option>
                   </select>
@@ -291,660 +254,434 @@
               </div>
             </div>
 
-            <!-- Prediction Result Card -->
-            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
-              <div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">ผลการทำนาย (Prediction Result)</div>
-              <div class="mt-1 flex items-baseline justify-between">
+            <!-- Real-time Prediction Output Box -->
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-1">
+              <div class="flex items-center justify-between text-xs text-slate-500">
+                <span class="font-semibold uppercase tracking-wider">ผลลัพธ์การทำนาย:</span>
+                <span id="knn-query-coord" class="font-mono text-slate-700 font-bold">Query: (4.0, 5.0)</span>
+              </div>
+              <div class="flex items-baseline justify-between pt-1">
                 <span id="knn-pred-class" class="text-2xl font-black font-display text-slate-900">Class A</span>
-                <span id="knn-pred-detail" class="text-xs font-mono text-slate-600">คะแนน: 2/3 โหวต</span>
-              </div>
-              <div class="mt-2.5 pt-2.5 border-t border-slate-200 text-xs text-slate-600 flex justify-between">
-                <span>พิกัดจุดทดสอบ:</span>
-                <span id="knn-query-coord" class="font-mono font-semibold text-slate-800">(4.0, 5.0)</span>
+                <span id="knn-pred-detail" class="text-xs font-mono text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">2/3 เสียงข้างมาก</span>
               </div>
             </div>
 
-            <!-- Live Distance Calculation Table -->
-            <div class="space-y-2">
-              <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
-                <span>ตารางคำนวณระยะทางและคัดเลือก K ตัวแรก:</span>
-                <span class="text-[10px] text-slate-400 font-mono">เรียงจากน้อยไปมาก</span>
+            <!-- AntV G2 Chart: Real-time Distance Ranking -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                  AntV G2: ลำดับระยะทางของเพื่อนบ้านทั้งหมด
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">น้อย $\rightarrow$ มาก</span>
               </div>
-              <div class="max-h-48 overflow-y-auto border border-slate-200 rounded-lg text-xs">
-                <table class="w-full text-left border-collapse">
-                  <thead class="bg-slate-100 sticky top-0 text-[11px] text-slate-600 font-semibold">
-                    <tr>
-                      <th class="p-2">จุด</th>
-                      <th class="p-2">คลาส</th>
-                      <th class="p-2">ระยะทาง</th>
-                      <th class="p-2">น้ำหนัก</th>
-                      <th class="p-2 text-right">สถานะ</th>
-                    </tr>
-                  </thead>
-                  <tbody id="knn-table-body" class="divide-y divide-slate-100 font-mono text-[11px]">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
-              </div>
+              <div id="antv-knn-container" class="w-full h-36 border border-slate-200 rounded-xl bg-white overflow-hidden p-1"></div>
             </div>
+
+            <!-- Table of Top-K -->
+            <div class="max-h-28 overflow-y-auto border border-slate-200 rounded-lg text-xs">
+              <table class="w-full text-left font-mono text-[11px] border-collapse">
+                <thead class="bg-slate-100 text-slate-600 sticky top-0">
+                  <tr>
+                    <th class="p-1.5">จุด</th>
+                    <th class="p-1.5">คลาส</th>
+                    <th class="p-1.5">ระยะทาง</th>
+                    <th class="p-1.5 text-right">สถานะ</th>
+                  </tr>
+                </thead>
+                <tbody id="knn-table-body" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Slide Example Walkthrough Accordion / Callout -->
-      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
-        <h3 class="text-base font-bold font-display text-slate-900 flex items-center gap-2">
-          <span class="w-6 h-6 rounded-md bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-black">EX</span>
-          ตัวอย่างการคำนวณตามสไลด์อาจารย์ (สไลด์หน้า 12-13): จุด A ถึง E
-        </h3>
-        <div class="text-sm text-slate-600 leading-relaxed">
-          กำหนดจุดข้อมูลฝึกฝน: $A(2,3) \in \text{Class A}$, $B(3,5) \in \text{Class B}$, $C(6,8) \in \text{Class B}$, $D(7,6) \in \text{Class B}$, $E(5,4) \in \text{Class A}$
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-          <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 font-sans">จุดทดสอบที่ 1: \(P_1 = (4, 5)\)</div>
-            <div>• \(d(P_1, A) = \sqrt{(4-2)^2 + (5-3)^2} = \sqrt{8} \approx 2.828\) (Class A)</div>
-            <div>• \(d(P_1, B) = \sqrt{(4-3)^2 + (5-5)^2} = \sqrt{1} = 1.000\) (Class B) <span class="text-emerald-700 font-semibold">[อันดับ 1]</span></div>
-            <div>• \(d(P_1, C) = \sqrt{(4-6)^2 + (5-8)^2} = \sqrt{13} \approx 3.606\) (Class B)</div>
-            <div>• \(d(P_1, D) = \sqrt{(4-7)^2 + (5-6)^2} = \sqrt{10} \approx 3.162\) (Class B)</div>
-            <div>• \(d(P_1, E) = \sqrt{(4-5)^2 + (5-4)^2} = \sqrt{2} \approx 1.414\) (Class A) <span class="text-emerald-700 font-semibold">[อันดับ 2]</span></div>
-            <div class="pt-2 border-t border-slate-200 text-slate-800 font-sans">
-              <strong>สรุป:</strong> ถ้า \(K=1\) ทาย <strong>Class B</strong> | ถ้า \(K=3\) มีเพื่อนบ้านคือ B(Class B), E(Class A), A(Class A) ผลโหวต Class A = 2 เสียง, Class B = 1 เสียง $\implies$ <strong>ทำนาย Class A</strong>
-            </div>
-          </div>
-
-          <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 font-sans">จุดทดสอบที่ 2: \(P_2 = (6, 5)\)</div>
-            <div>• \(d(P_2, A) = \sqrt{(6-2)^2 + (5-3)^2} = \sqrt{20} \approx 4.472\) (Class A)</div>
-            <div>• \(d(P_2, B) = \sqrt{(6-3)^2 + (5-5)^2} = \sqrt{9} = 3.000\) (Class B) <span class="text-emerald-700 font-semibold">[อันดับ 3]</span></div>
-            <div>• \(d(P_2, C) = \sqrt{(6-6)^2 + (5-8)^2} = \sqrt{9} = 3.000\) (Class B)</div>
-            <div>• \(d(P_2, D) = \sqrt{(6-7)^2 + (5-6)^2} = \sqrt{2} \approx 1.414\) (Class B) <span class="text-emerald-700 font-semibold">[อันดับ 1]</span></div>
-            <div>• \(d(P_2, E) = \sqrt{(6-5)^2 + (5-4)^2} = \sqrt{2} \approx 1.414\) (Class A) <span class="text-emerald-700 font-semibold">[อันดับ 2]</span></div>
-            <div class="pt-2 border-t border-slate-200 text-slate-800 font-sans">
-              <strong>สรุป:</strong> ถ้า \(K=1\) เกิดเสมอระหว่าง D และ E | ถ้า \(K=3\) เพื่อนบ้าน 3 ตัวมี Class B จำนวน 2 ตัว (D, B) และ Class A จำนวน 1 ตัว (E) $\implies$ <strong>ทำนาย Class B</strong>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ================================================================= -->
     <!-- SECTION 2: KNN REGRESSION -->
     <!-- ================================================================= -->
-    <section id="sec-knn-reg" class="space-y-8 hidden">
-      <!-- Header Banner -->
+    <section id="sec-knn-reg" class="space-y-6 hidden">
+      
+      <!-- Headline & Metaphor Banner -->
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 mb-3">
-            <span class="badge bg-blue-100 text-blue-800">Supervised Learning</span>
-            <span class="badge bg-purple-100 text-purple-800">Continuous Prediction</span>
-            <span class="badge bg-orange-100 text-orange-800">คะแนนเต็ม 5 คะแนน</span>
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="badge bg-blue-100 text-blue-900">Supervised Learning</span>
+            <span class="badge bg-indigo-100 text-indigo-900">Continuous Value Prediction</span>
+            <span class="badge bg-orange-100 text-orange-900 font-bold">5 คะแนน</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
-            2. K-Nearest Neighbor (KNN) Regression
-          </h2>
-          <p class="mt-2 text-slate-600 leading-relaxed text-sm sm:text-base">
-            เป็นอัลกอริทึมสำหรับพยากรณ์ <strong class="text-slate-900">ค่าตัวเลขต่อเนื่อง (Continuous Target Variable)</strong> เช่น ราคาบ้าน, ยอดขาย, หรือดัชนีหุ้น โดยอาศัยการหาเพื่อนบ้าน $K$ ตัวที่ใกล้ที่สุดในมิติของ Features แล้วนำค่า Target ของเพื่อนบ้านมาหา <strong class="text-slate-900">ค่าเฉลี่ย (Mean)</strong> หรือ <strong class="text-slate-900">ค่าเฉลี่ยถ่วงน้ำหนักตามระยะทาง (Distance-Weighted Average)</strong>
-          </p>
+          <span class="text-xs text-slate-500 font-mono">Algorithm 2 of 3</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
+          2. K-Nearest Neighbor (KNN) Regression
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed max-w-4xl">
+          ประยุกต์ใช้ KNN สำหรับพยากรณ์ <strong>ตัวเลขต่อเนื่อง (Continuous Target)</strong> เช่น ราคาบ้าน, ยอดขาย, หรืออุณหภูมิ โดยคำนวณหาเพื่อนบ้านที่คล้ายคลึงที่สุด $K$ หลัง แล้วนำราคาของเพื่อนบ้านมาหา <strong>ค่าเฉลี่ยปกติ</strong> หรือ <strong>ค่าเฉลี่ยถ่วงน้ำหนักตามระยะทาง (Distance-Weighted)</strong>
+        </p>
+
+        <!-- ELI5 Metaphor Card -->
+        <div class="mt-5 p-4 rounded-xl bg-blue-50/70 border border-blue-200/80 flex items-start gap-3">
+          <div class="text-2xl flex-shrink-0">🏢</div>
+          <div class="text-xs sm:text-sm text-blue-950 leading-relaxed">
+            <strong class="font-bold text-blue-900 block text-sm mb-0.5">💡 เปรียบเทียบให้เข้าใจง่ายใน 1 นาที (สำหรับผู้เริ่มต้น):</strong>
+            สมมติคุณอยากขายบ้านขนาด 72 ตร.ม. แต่ไม่รู้จะตั้งราคาเท่าไรดี? คุณจึงเปิดดูประกาศขายบ้านในหมู่บ้านเดียวกัน หา <strong>บ้าน 5 หลังที่ขนาดใกล้เคียงกับบ้านคุณที่สุด</strong> แล้วนำราคาของบ้านทั้ง 5 หลังมาเฉลี่ยกัน! ยิ่งหลังไหนมีขนาด 70 ตร.ม. (ใกล้เคียง 72 มาก) คุณก็ให้ความสำคัญกับราคานั้นมากเป็นพิเศษ ส่วนหลังที่ขนาด 85 ตร.ม. (ห่างกว่า) ก็มีผลต่อราคาน้อยลง นี่คือหลักการของ Weighted KNN Regression!
+          </div>
         </div>
       </div>
 
-      <!-- Formula Comparison Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-accent-blue">
-              1. Simple KNN Regression (ค่าเฉลี่ยปกติ)
-            </h3>
-            <span class="badge bg-slate-100 text-slate-600">สไลด์หน้า 14-19</span>
-          </div>
-          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-center text-sm">
-            \( \hat{y} = \frac{1}{K} \sum_{i=1}^K y_i \)
-          </div>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            ให้ความสำคัญกับเพื่อนบ้านทั้ง $K$ ตัวเท่ากันทั้งหมด เหมาะสำหรับข้อมูลที่มีการกระจายตัวสม่ำเสมอและไม่มี Outlier รบกวน
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-brand-600">
-              2. Weighted KNN Regression (ถ่วงน้ำหนักระยะทาง)
-            </h3>
-            <span class="badge bg-slate-100 text-slate-600">สไลด์หน้า 20-29</span>
-          </div>
-          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-center text-sm">
-            \( \hat{y} = \frac{\sum_{i=1}^K w_i \cdot y_i}{\sum_{i=1}^K w_i} \quad \text{โดย} \quad w_i = \frac{1}{d(x, x_i)^p + \epsilon} \)
-          </div>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            เพื่อนบ้านที่อยู่ใกล้จุดทดสอบมากกว่าจะได้น้ำหนัก ($w_i$) สูงกว่า และมีอิทธิพลต่อผลทำนายมากกว่าเพื่อนบ้านที่อยู่ห่างออกไป (โดยทั่วไปกำหนด $p=2, \epsilon=10^{-5}$)
-          </p>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE VISUALIZATION 2: KNN REGRESSION PLAYGROUND -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
-        <div class="p-4 sm:p-6 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+      <!-- MAIN INTERACTIVE STUDIO: Continuous Curve + AntV Weights Breakdown -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/80 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="inline-block w-3 h-3 rounded-full bg-blue-600 animate-pulse"></span>
-              <h3 class="font-bold text-lg font-display text-slate-900">
-                Interactive Visualization: KNN Regression Studio
-              </h3>
-            </div>
+            <h3 class="font-bold text-base font-display text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
+              สตูดิโอจำลองการทำนายราคาและเส้นถดถอยแบบเรียลไทม์
+            </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              เลื่อนปรับค่า Feature X (เช่น ขนาดพื้นที่บ้านในสไลด์อาจารย์) และดูเส้นทำนายต่อเนื่อง พร้อมเพื่อนบ้าน K ตัวแบบสดๆ
+              เลื่อนแถบ Slider ด้านขวา หรือคลิกบนกราฟเพื่อเปลี่ยนขนาดพื้นที่บ้าน แล้วสังเกตเส้นพยากรณ์
             </p>
           </div>
 
           <div class="flex items-center gap-2 text-xs">
-            <span class="text-slate-500 font-medium">ชุดข้อมูล:</span>
-            <button onclick="loadRegDataset('house')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              ราคาบ้าน (สไลด์หน้า 27)
+            <button onclick="loadRegDataset('house')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              ชุดข้อมูลราคาบ้าน (สไลด์หน้า 27)
             </button>
-            <button onclick="loadRegDataset('synthetic')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              แนวโน้มไม่เป็นเส้นตรง (Non-linear)
+            <button onclick="loadRegDataset('synthetic')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              แนวโน้มแบบคลื่น (Non-linear)
             </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
-          <!-- Graph Canvas Area (Left 7 Cols) -->
-          <div class="lg:col-span-7 p-4 sm:p-6 flex flex-col items-center justify-center bg-slate-50/50">
-            <div class="relative w-full aspect-[4/3] max-w-[550px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden">
-              <canvas id="reg-canvas" width="550" height="400" class="w-full h-full cursor-pointer"></canvas>
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+          <!-- Graph Canvas Area -->
+          <div class="lg:col-span-7 p-5 bg-slate-50/40 flex flex-col items-center justify-center">
+            <div class="relative w-full aspect-[4/3] max-w-[520px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden">
+              <canvas id="reg-canvas" width="520" height="390" class="w-full h-full cursor-pointer"></canvas>
             </div>
-            <div class="w-full max-w-[550px] mt-3 flex items-center justify-between text-xs text-slate-500">
+            <div class="w-full max-w-[520px] mt-3 flex items-center justify-between text-xs text-slate-500">
               <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#1d3557]"></span> ข้อมูลฝึกฝน</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-0.5 bg-[#457b9d] inline-block"></span> เส้นทำนาย Simple</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-0.5 bg-[#c2410c] inline-block"></span> เส้นทำนาย Weighted</span>
-                <span class="inline-flex items-center gap-1 text-orange-600 font-bold">★ จุดทำนาย</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#1e40af]"></span> บ้านในอดีต</span>
+                <span class="inline-flex items-center gap-1"><span class="w-3 h-0.5 bg-[#c2410c] inline-block"></span> เส้นทำนาย Weighted Curve</span>
+                <span class="inline-flex items-center gap-1 text-orange-600 font-bold">★ ราคาพยากรณ์</span>
               </div>
-              <span>คลิกบนกราฟเพื่อเลือกค่า X</span>
             </div>
           </div>
 
-          <!-- Controls & Detailed Step-by-Step Calculation (Right 5 Cols) -->
-          <div class="lg:col-span-5 p-4 sm:p-6 space-y-5 bg-white">
-            <div class="space-y-4">
+          <!-- Controls & AntV Weighting Breakdown -->
+          <div class="lg:col-span-5 p-5 space-y-4 bg-white flex flex-col justify-between">
+            <div class="space-y-3">
               <div>
-                <div class="flex justify-between text-xs font-semibold text-slate-700">
-                  <label for="reg-x-slider">จุดทดสอบ X (เช่น พื้นที่บ้าน ตร.ม.):</label>
+                <div class="flex justify-between text-xs font-bold text-slate-800">
+                  <label for="reg-x-slider">ขนาดพื้นที่บ้านที่ต้องการทำนาย (ตร.ม.):</label>
                   <span id="reg-x-val" class="font-mono text-brand-600 text-sm font-bold">72</span>
                 </div>
-                <input id="reg-x-slider" type="range" min="45" max="105" step="1" value="72" class="w-full mt-1.5 accent-brand-600" oninput="updateRegression()">
+                <input id="reg-x-slider" type="range" min="45" max="105" step="1" value="72" class="w-full mt-1.5 accent-brand-600 cursor-pointer" oninput="updateRegression()">
               </div>
 
               <div>
-                <div class="flex justify-between text-xs font-semibold text-slate-700">
-                  <label for="reg-k-slider">จำนวนเพื่อนบ้าน K:</label>
+                <div class="flex justify-between text-xs font-bold text-slate-800">
+                  <label for="reg-k-slider">จำนวนเพื่อนบ้าน K หลัง:</label>
                   <span id="reg-k-val" class="font-mono text-blue-600 text-sm font-bold">5</span>
                 </div>
-                <input id="reg-k-slider" type="range" min="1" max="7" step="1" value="5" class="w-full mt-1.5 accent-blue-600" oninput="updateRegression()">
+                <input id="reg-k-slider" type="range" min="1" max="7" step="1" value="5" class="w-full mt-1.5 accent-blue-600 cursor-pointer" oninput="updateRegression()">
               </div>
             </div>
 
-            <!-- Prediction Result Cards Comparison -->
-            <div class="grid grid-cols-2 gap-3">
+            <!-- Prediction Result Comparison -->
+            <div class="grid grid-cols-2 gap-2">
               <div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
-                <div class="text-[11px] text-slate-500 font-semibold">Simple Average</div>
-                <div id="reg-pred-simple" class="text-xl font-black font-display text-slate-900 mt-1">1250.00</div>
-                <div class="text-[10px] text-slate-500 font-mono mt-0.5">ค่าเฉลี่ยปกติ \( \sum y_i / K \)</div>
+                <div class="text-[11px] text-slate-500 font-semibold">1. Simple Average</div>
+                <div id="reg-pred-simple" class="text-xl font-black font-display text-slate-800 mt-0.5">1250.00</div>
+                <div class="text-[10px] text-slate-400 font-mono">ค่าเฉลี่ยธรรมดา \(\frac{1}{K}\sum y\)</div>
               </div>
               <div class="p-3 rounded-xl border border-orange-200 bg-orange-50/60">
-                <div class="text-[11px] text-orange-700 font-semibold">Weighted Average</div>
-                <div id="reg-pred-weighted" class="text-xl font-black font-display text-brand-700 mt-1">1217.59</div>
-                <div class="text-[10px] text-orange-600 font-mono mt-0.5">ถ่วงน้ำหนัก \( \sum w_i y_i / \sum w_i \)</div>
+                <div class="text-[11px] text-orange-800 font-bold">2. Weighted Average</div>
+                <div id="reg-pred-weighted" class="text-xl font-black font-display text-brand-700 mt-0.5">1217.59</div>
+                <div class="text-[10px] text-orange-600 font-mono">ถ่วงน้ำหนัก \(\frac{\sum wy}{\sum w}\)</div>
               </div>
             </div>
 
-            <!-- Mathematical Step Walkthrough -->
-            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs font-mono">
-              <div class="font-bold text-slate-900 font-sans flex items-center justify-between">
-                <span>รายละเอียดการคำนวณถ่วงน้ำหนัก:</span>
-                <span class="text-[10px] text-slate-500">\(p=2, \epsilon=10^{-5}\)</span>
-              </div>
-              <div class="text-slate-700 text-[11px] space-y-1">
-                <div>Numerator (\(\sum w_i \cdot y_i\)):</div>
-                <div id="reg-calc-num" class="bg-white p-1.5 rounded border border-slate-200 overflow-x-auto text-[10px]">
-                  490.59
-                </div>
-                <div class="mt-1">Denominator (\(\sum w_i\)):</div>
-                <div id="reg-calc-den" class="bg-white p-1.5 rounded border border-slate-200 text-[10px]">
-                  0.4029
-                </div>
-                <div class="mt-1 font-semibold text-brand-700 font-sans">
-                  \(\hat{y} = \frac{490.59}{0.4029} \approx 1,217.59\) พันบาท
-                </div>
-              </div>
-            </div>
-
-            <!-- Nearest Neighbors Table -->
+            <!-- AntV G2 Chart: Weights of Top K Neighbors -->
             <div class="space-y-1.5">
-              <div class="text-xs font-semibold text-slate-700">เพื่อนบ้าน K ตัวที่ใกล้ที่สุด:</div>
-              <div class="max-h-36 overflow-y-auto border border-slate-200 rounded-lg text-xs">
-                <table class="w-full text-left border-collapse font-mono text-[11px]">
-                  <thead class="bg-slate-100 text-[10px] text-slate-600 sticky top-0">
-                    <tr>
-                      <th class="p-1.5">ID</th>
-                      <th class="p-1.5">พื้นที่(X)</th>
-                      <th class="p-1.5">ราคา(Y)</th>
-                      <th class="p-1.5">ระยะทาง(d)</th>
-                      <th class="p-1.5">น้ำหนัก(w)</th>
-                    </tr>
-                  </thead>
-                  <tbody id="reg-table-body" class="divide-y divide-slate-100">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
+              <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                  AntV G2: การกระจายน้ำหนักของเพื่อนบ้าน K หลัง
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">\(w_i = \frac{1}{d_i^2 + \epsilon}\)</span>
               </div>
+              <div id="antv-reg-container" class="w-full h-36 border border-slate-200 rounded-xl bg-white overflow-hidden p-1"></div>
             </div>
 
+            <!-- Step calculation box -->
+            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono space-y-1">
+              <div class="text-slate-500 text-[10px] uppercase font-bold">สูตรคำนวณตามสไลด์หน้า 29:</div>
+              <div class="text-[11px] text-slate-800">
+                \(\hat{y} = \frac{490.59}{0.4029} \approx \mathbf{1,217.59}\) พันบาท (1.21 ล้านบาท)
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide Walkthrough & Colab Real-world Application -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <span class="w-5 h-5 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">1</span>
-            ตัวอย่างสไลด์หน้า 17-19: ทำนายด้วย 5 Features
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            จุดทดสอบ \([3, 3, 4, 3, 3]\), เลือก $K=3$ เพื่อนบ้านใกล้สุด 3 ตัวคือ ID 1 ($y=50, d=1.414$), ID 3 ($y=52, d=1.414$), ID 5 ($y=51, d=1.414$)
-          </p>
-          <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-xs font-mono">
-            \( \hat{y} = \frac{50 + 52 + 51}{3} = \frac{153}{3} = 51.00 \)
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <span class="w-5 h-5 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">2</span>
-            การประยุกต์ใช้ใน Colab: พยากรณ์ราคาหุ้น AAPL
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            นำเทคนิค <strong>Sliding Window</strong> 5 วัน (ใช้ราคาปิดวันที่ 1-5 ทำนายวันที่ 6) ประเมินความแม่นยำด้วย <strong>Mean Absolute Error (MAE)</strong>
-          </p>
-          <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-xs font-mono">
-            ผลการทดลอง: MAE (k=5, Simple) = 1.83 USD | MAE (k=5, Weighted) = 1.88 USD
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ================================================================= -->
     <!-- SECTION 3: K-MEANS CLUSTERING -->
     <!-- ================================================================= -->
-    <section id="sec-kmeans" class="space-y-8 hidden">
-      <!-- Header Banner -->
+    <section id="sec-kmeans" class="space-y-6 hidden">
+      
+      <!-- Headline & Metaphor Banner -->
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 mb-3">
-            <span class="badge bg-emerald-100 text-emerald-800">Unsupervised Learning</span>
-            <span class="badge bg-teal-100 text-teal-800">Partitioning Algorithm</span>
-            <span class="badge bg-orange-100 text-orange-800">คะแนนเต็ม 5 คะแนน</span>
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="badge bg-emerald-100 text-emerald-900">Unsupervised Learning</span>
+            <span class="badge bg-teal-100 text-teal-900">Partitioning Algorithm</span>
+            <span class="badge bg-orange-100 text-orange-900 font-bold">5 คะแนน</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
-            3. K-Means Clustering (การจัดกลุ่มข้อมูล)
-          </h2>
-          <p class="mt-2 text-slate-600 leading-relaxed text-sm sm:text-base">
-            เป็นอัลกอริทึมการเรียนรู้แบบไม่มีผู้สอน (Unsupervised Learning) ที่ไม่มีป้ายกำกับ (No Labels) มีเป้าหมายเพื่อ <strong class="text-slate-900">แบ่งข้อมูลออกเป็น $K$ กลุ่ม</strong> โดยอาศัยความใกล้เคียงของจุดข้อมูลกับ <strong class="text-slate-900">จุดศูนย์กลางของกลุ่ม (Centroid)</strong> เพื่อให้ข้อมูลภายในกลุ่มเดียวกันมีความคล้ายคลึงกันมากที่สุด และข้อมูลต่างกลุ่มกันมีความแตกต่างกันมากที่สุด
-          </p>
+          <span class="text-xs text-slate-500 font-mono">Algorithm 3 of 3</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
+          3. K-Means Clustering (การจัดกลุ่มข้อมูล)
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed max-w-4xl">
+          อัลกอริทึมการเรียนรู้แบบไม่มีผู้สอน (ไม่มีป้ายกำกับคลาส) เพื่อแบ่งข้อมูลออกเป็น $K$ กลุ่ม โดยค้นหา <strong>จุดศูนย์กลางของกลุ่ม (Centroid)</strong> ที่เหมาะสมที่สุด ผ่านกระบวนการจัดกลุ่มและขยับจุดศูนย์กลางแบบวนซ้ำจนกระทั่งตำแหน่งนิ่ง (Converged)
+        </p>
+
+        <!-- ELI5 Metaphor Card -->
+        <div class="mt-5 p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 flex items-start gap-3">
+          <div class="text-2xl flex-shrink-0">👥</div>
+          <div class="text-xs sm:text-sm text-emerald-950 leading-relaxed">
+            <strong class="font-bold text-emerald-900 block text-sm mb-0.5">💡 เปรียบเทียบให้เข้าใจง่ายใน 1 นาที (สำหรับผู้เริ่มต้น):</strong>
+            สมมตินักเรียน 100 คนยืนกระจายกันในสนามฟุตบอล แล้วครูสั่งให้ <strong>"แบ่งเป็น 3 กลุ่มทำกิจกรรม"</strong> วิธีที่ง่ายที่สุดคือ เลือกตัวแทน 3 คนมายืนกระจายกันเป็นหัวหน้ากลุ่ม จากนั้นนักเรียนทุกคนให้ <em>เดินไปหาหัวหน้าที่อยู่ใกล้ตัวเองที่สุด</em> พอนักเรียนเข้าแถวเสร็จ หัวหน้าทั้ง 3 คนก็จะ <em>เดินขยับไปยืนตรงจุดกึ่งกลางของแถวกลุ่มตนเอง</em> เมื่อหัวหน้าขยับ นักเรียนบางคนอาจพบว่าหัวหน้าอีกคนอยู่ใกล้กว่า จึงเดินย้ายกลุ่ม ปรับแบบนี้ 2-3 รอบ ทุกคนก็จะถูกแบ่งกลุ่มได้อย่างเป็นธรรมชาติและลงตัวที่สุด!
+          </div>
         </div>
       </div>
 
-      <!-- 5-Step Process Timeline Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center mb-2">1</div>
-          <div class="font-bold text-xs text-slate-900">กำหนดค่า K</div>
-          <p class="text-[11px] text-slate-500 mt-1">ระบุจำนวนกลุ่มที่ต้องการแบ่ง</p>
-        </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center mb-2">2</div>
-          <div class="font-bold text-xs text-slate-900">กำหนด Initial Centroids</div>
-          <p class="text-[11px] text-slate-500 mt-1">สุ่มหรือระบุตำแหน่งศูนย์กลางเริ่มต้น</p>
-        </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mb-2">3</div>
-          <div class="font-bold text-xs text-brand-600">Cluster Assignment</div>
-          <p class="text-[11px] text-slate-500 mt-1">จัดจุดข้อมูลเข้าสังกัด Centroid ที่ใกล้ที่สุด</p>
-        </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-2">4</div>
-          <div class="font-bold text-xs text-emerald-600">Update Centroid</div>
-          <p class="text-[11px] text-slate-500 mt-1">หาค่าเฉลี่ย (\(\bar{x}, \bar{y}\)) เป็นจุดศูนย์กลางใหม่</p>
-        </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm col-span-2 sm:col-span-1">
-          <div class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center mb-2">5</div>
-          <div class="font-bold text-xs text-blue-600">Iteration & Stop</div>
-          <p class="text-[11px] text-slate-500 mt-1">ทำซ้ำจน Centroid นิ่ง หรือครบรอบ</p>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE VISUALIZATION 3: K-MEANS SIMULATOR -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
-        <div class="p-4 sm:p-6 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+      <!-- MAIN INTERACTIVE STUDIO: K-Means Simulator + AntV Cluster Distribution -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/80 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="inline-block w-3 h-3 rounded-full bg-emerald-600 animate-pulse"></span>
-              <h3 class="font-bold text-lg font-display text-slate-900">
-                Interactive Visualization: Step-by-Step K-Means Simulator
-              </h3>
-            </div>
+            <h3 class="font-bold text-base font-display text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-ping"></span>
+              เครื่องมือจำลอง K-Means Step-by-Step พร้อมภาพเคลื่อนไหว
+            </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              กดปุ่ม Next Step เพื่อสังเกตการคำนวณระยะทาง การเปลี่ยนกลุ่ม และการขยับของจุด Centroid ทีละรอบแบบสดๆ
+              กดปุ่ม Next Step เพื่อสังเกตการคำนวณระยะทางและการเคลื่อนที่ของ Centroid ทีละรอบแบบสดๆ
             </p>
           </div>
 
           <div class="flex items-center gap-2 text-xs">
-            <span class="text-slate-500 font-medium">ชุดข้อมูล:</span>
-            <button onclick="loadKmeansPreset('slide')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              สไลด์ อ.โอฬาริก (A-F 6 จุด)
+            <button onclick="loadKmeansPreset('slide')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              โจทย์สไลด์ อ.โอฬาริก (จุด A-F)
             </button>
-            <button onclick="loadKmeansPreset('blobs')" class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md font-semibold text-slate-700 hover:bg-slate-100 transition shadow-sm">
-              กลุ่มข้อมูลสังเคราะห์ (Blobs)
+            <button onclick="loadKmeansPreset('blobs')" class="btn-tactile px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-slate-700 hover:bg-slate-100 shadow-sm">
+              กลุ่มข้อมูลกระจายตัว (Blobs)
             </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
-          <!-- Simulation Canvas (Left 7 Cols) -->
-          <div class="lg:col-span-7 p-4 sm:p-6 flex flex-col items-center justify-center bg-slate-50/50">
-            <div class="relative w-full aspect-square max-w-[500px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden canvas-container">
-              <canvas id="kmeans-canvas" width="500" height="500" class="w-full h-full"></canvas>
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+          <!-- Canvas Simulator -->
+          <div class="lg:col-span-7 p-5 bg-slate-50/40 flex flex-col items-center justify-center">
+            <div class="relative w-full aspect-square max-w-[480px] bg-white rounded-xl border border-slate-300 shadow-inner overflow-hidden canvas-grid">
+              <canvas id="kmeans-canvas" width="480" height="480" class="w-full h-full"></canvas>
             </div>
-            <div class="w-full max-w-[500px] mt-3 flex items-center justify-between text-xs text-slate-500">
+            <div class="w-full max-w-[480px] mt-3 flex items-center justify-between text-xs text-slate-600">
               <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#1d3557]"></span> คลัสเตอร์ 1</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#2a9d8f]"></span> คลัสเตอร์ 2</span>
-                <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-[#e76f51]"></span> คลัสเตอร์ 3</span>
-                <span class="inline-flex items-center gap-1 font-black text-rose-600">✖ Centroids</span>
+                <span class="inline-flex items-center gap-1 font-medium"><span class="w-3 h-3 rounded-full bg-[#1e40af]"></span> คลัสเตอร์ 1</span>
+                <span class="inline-flex items-center gap-1 font-medium"><span class="w-3 h-3 rounded-full bg-[#059669]"></span> คลัสเตอร์ 2</span>
+                <span class="inline-flex items-center gap-1 font-medium"><span class="w-3 h-3 rounded-full bg-[#ea580c]"></span> คลัสเตอร์ 3</span>
+                <span class="inline-flex items-center gap-1 font-bold text-rose-600">✖ จุด Centroid</span>
               </div>
-              <span id="kmeans-status-badge" class="badge bg-amber-100 text-amber-800">รอบที่ 0: กำหนด Centroid</span>
+              <span id="kmeans-status-badge" class="badge bg-amber-100 text-amber-900">รอบที่ 0: เริ่มต้น</span>
             </div>
           </div>
 
-          <!-- Controls & Iteration History (Right 5 Cols) -->
-          <div class="lg:col-span-5 p-4 sm:p-6 space-y-5 bg-white">
-            <!-- Step Controls -->
-            <div class="space-y-3">
+          <!-- Controls + AntV Distribution Chart -->
+          <div class="lg:col-span-5 p-5 space-y-4 bg-white flex flex-col justify-between">
+            <!-- Buttons Bar -->
+            <div class="space-y-2.5">
               <div class="flex items-center gap-2">
-                <button id="kmeans-step-btn" onclick="stepKmeans()" class="flex-1 px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-lg transition shadow flex items-center justify-center gap-1.5">
+                <button id="kmeans-step-btn" onclick="stepKmeans()" class="btn-tactile flex-1 px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow flex items-center justify-center gap-1.5">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
                   <span>ก้าวถัดไป (Next Step)</span>
                 </button>
-                <button id="kmeans-play-btn" onclick="togglePlayKmeans()" class="px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-lg transition shadow">
+                <button id="kmeans-play-btn" onclick="togglePlayKmeans()" class="btn-tactile px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow">
                   ▶ เล่นอัตโนมัติ
                 </button>
-                <button onclick="resetKmeans()" class="px-3 py-2.5 border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg transition">
+                <button onclick="resetKmeans()" class="btn-tactile px-3 py-2.5 border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl">
                   รีเซ็ต
                 </button>
               </div>
 
               <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
-                <span>จำนวนคลัสเตอร์ K:</span>
+                <span class="font-bold">จำนวนกลุ่ม K:</span>
                 <div class="flex items-center gap-1 font-semibold">
-                  <button onclick="changeKmeansK(2)" id="k-btn-2" class="px-2.5 py-1 rounded border border-slate-300 bg-brand-50 text-brand-700 border-brand-300">K=2</button>
-                  <button onclick="changeKmeansK(3)" id="k-btn-3" class="px-2.5 py-1 rounded border border-slate-300 text-slate-600">K=3</button>
-                  <button onclick="changeKmeansK(4)" id="k-btn-4" class="px-2.5 py-1 rounded border border-slate-300 text-slate-600">K=4</button>
+                  <button onclick="changeKmeansK(2)" id="k-btn-2" class="px-2.5 py-1 rounded-lg border bg-brand-50 text-brand-700 border-brand-300 font-bold">K=2</button>
+                  <button onclick="changeKmeansK(3)" id="k-btn-3" class="px-2.5 py-1 rounded-lg border border-slate-300 text-slate-600">K=3</button>
+                  <button onclick="changeKmeansK(4)" id="k-btn-4" class="px-2.5 py-1 rounded-lg border border-slate-300 text-slate-600">K=4</button>
                 </div>
               </div>
             </div>
 
-            <!-- Iteration Info Card -->
-            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+            <!-- Current Step Info Card -->
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-1">
               <div class="flex justify-between text-xs">
-                <span class="font-bold text-slate-900">สถานะขั้นตอนปัจจุบัน:</span>
-                <span id="kmeans-step-text" class="font-mono text-brand-600 font-semibold">1. Cluster Assignment</span>
+                <span class="font-bold text-slate-800">ขั้นตอนปัจจุบัน:</span>
+                <span id="kmeans-step-text" class="font-mono text-brand-600 font-bold">1. จัดกลุ่ม (Cluster Assignment)</span>
               </div>
               <div id="kmeans-summary-text" class="text-xs text-slate-600 leading-relaxed">
-                คำนวณระยะห่างระหว่างทุกจุดข้อมูลกับ Centroid ทุกตัว แล้วจัดกลุ่มไปยัง Centroid ที่ใกล้ที่สุด
+                คำนวณระยะห่างระหว่างจุดข้อมูลทุกจุดกับ Centroid ทุกตัว แล้วจัดให้จุดนั้นสังกัดกลุ่มที่ใกล้ที่สุด
               </div>
             </div>
 
-            <!-- Centroids Coordinate Table -->
+            <!-- AntV G2 Chart: Cluster Size Distribution -->
             <div class="space-y-1.5">
-              <div class="text-xs font-semibold text-slate-700">พิกัด Centroid ล่าสุด:</div>
-              <div class="border border-slate-200 rounded-lg overflow-hidden text-xs">
-                <table class="w-full text-left font-mono text-[11px]">
-                  <thead class="bg-slate-100 text-[10px] text-slate-600">
-                    <tr>
-                      <th class="p-2">Centroid</th>
-                      <th class="p-2">พิกัด (X, Y)</th>
-                      <th class="p-2 text-right">จำนวนสมาชิก</th>
-                    </tr>
-                  </thead>
-                  <tbody id="kmeans-centroid-body" class="divide-y divide-slate-100">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
+              <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                  AntV G2: จำนวนสมาชิกในแต่ละคลัสเตอร์
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">อัปเดตทุกรอบ</span>
               </div>
+              <div id="antv-kmeans-container" class="w-full h-36 border border-slate-200 rounded-xl bg-white overflow-hidden p-1"></div>
             </div>
 
-            <!-- Detailed Distance to Centroid Table -->
-            <div class="space-y-1.5">
-              <div class="text-xs font-semibold text-slate-700">ระยะห่างจากแต่ละจุดถึง Centroids:</div>
-              <div class="max-h-36 overflow-y-auto border border-slate-200 rounded-lg text-xs">
-                <table class="w-full text-left font-mono text-[11px]">
-                  <thead class="bg-slate-100 text-[10px] text-slate-600 sticky top-0">
-                    <tr>
-                      <th class="p-1.5">จุด</th>
-                      <th class="p-1.5">ระยะถึง C1</th>
-                      <th class="p-1.5">ระยะถึง C2</th>
-                      <th class="p-1.5 text-right">กลุ่มที่เลือก</th>
-                    </tr>
-                  </thead>
-                  <tbody id="kmeans-dist-table" class="divide-y divide-slate-100">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
-              </div>
+            <!-- Centroid Table -->
+            <div class="max-h-28 overflow-y-auto border border-slate-200 rounded-lg text-xs">
+              <table class="w-full text-left font-mono text-[11px] border-collapse">
+                <thead class="bg-slate-100 text-slate-600 sticky top-0">
+                  <tr>
+                    <th class="p-1.5">Centroid</th>
+                    <th class="p-1.5">พิกัด (X, Y)</th>
+                    <th class="p-1.5 text-right">สมาชิก</th>
+                  </tr>
+                </thead>
+                <tbody id="kmeans-centroid-body" class="divide-y divide-slate-100"></tbody>
+              </table>
             </div>
 
           </div>
         </div>
       </div>
 
-      <!-- Slide Example Walkthrough & Good vs Poor Clustering -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <span class="w-5 h-5 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">1</span>
-            ตัวอย่างสไลด์หน้า 8-11: คำนวณมือ จุด A ถึง F
-          </h3>
-          <div class="text-xs text-slate-600 leading-relaxed space-y-1 font-mono">
-            <div>จุด: A(2,3), B(3,4), C(4,5), D(8,8), E(9,9), F(8,10)</div>
-            <div>Centroid เริ่มต้น: \(C_1=(2,3), C_2=(9,9)\)</div>
-            <div class="pt-1"><strong>รอบที่ 1:</strong> กลุ่ม 1 = {A, B, C}, กลุ่ม 2 = {D, E, F}</div>
-            <div>\(C_1 \text{ ใหม่} = \left(\frac{2+3+4}{3}, \frac{3+4+5}{3}\right) = (3.00, 4.00)\)</div>
-            <div>\(C_2 \text{ ใหม่} = \left(\frac{8+9+8}{3}, \frac{8+9+10}{3}\right) = (8.33, 9.00)\)</div>
-            <div class="text-emerald-700 font-semibold font-sans pt-1">
-              ✓ รอบที่ 2 สมาชิกคงเดิม ไม่มีการสลับกลุ่ม $\implies$ Centroid ลู่เข้า (Converged)!
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <span class="w-5 h-5 rounded bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold">2</span>
-            เกณฑ์ Cluster ดี vs Cluster ไม่ดี (สไลด์หน้า 12)
-          </h3>
-          <div class="text-xs text-slate-600 space-y-2">
-            <div class="p-2 bg-emerald-50 text-emerald-900 rounded border border-emerald-200">
-              <strong>✓ Cluster ดี (Good Clustering):</strong> กลุ่มข้อมูลมีความชัดเจน แยกออกจากกัน ข้อมูลภายในกลุ่มเดียวกันเกาะกลุ่มหนาแน่น (High Intra-cluster similarity & Low Inter-cluster similarity)
-            </div>
-            <div class="p-2 bg-rose-50 text-rose-900 rounded border border-rose-200">
-              <strong>✗ Cluster ไม่ดี (Poor Clustering):</strong> กลุ่มข้อมูลทับซ้อนกัน ข้อมูลกระจายกว้าง หรือจำนวนกลุ่ม $K$ ไม่สอดคล้องกับธรรมชาติของข้อมูล
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- SECTION 4: FULL REPORT SUMMARY & TEAM MEMBERS -->
+    <!-- SECTION 4: TEAM MEMBERS & REPORT SUMMARY -->
     <!-- ================================================================= -->
-    <section id="sec-report-summary" class="space-y-8 hidden">
-      <!-- Report Header -->
-      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-6">
+    <section id="sec-report-summary" class="space-y-6 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
           <div>
             <span class="badge bg-slate-900 text-white mb-2">Theoretical-based Examination</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900">
-              เอกสารสรุปรายงานและข้อมูลสมาชิกกลุ่ม 5 คน
+            <h2 class="text-2xl font-extrabold font-display text-slate-900">
+              ข้อมูลกลุ่มและสมาชิก 4 คน (พร้อมส่งงาน)
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">
-              วิชา Machine Learning | ภาควิชาวิทยาการคอมพิวเตอร์และเทคโนโลยีสารสนเทศ | อาจารย์ ดร. โอฬาริก สุรินต๊ะ
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              วิชา Machine Learning | อาจารย์ ดร. โอฬาริก สุรินต๊ะ (15 คะแนนเต็ม)
             </p>
           </div>
-          <div class="flex items-center gap-2">
-            <a href="Machine_Learning_Theory_Exam.pdf" target="_blank" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-bold shadow flex items-center gap-1.5 transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>ดาวน์โหลดไฟล์ PDF รายงานฉบับสมบูรณ์</span>
-            </a>
-          </div>
+          <a href="Machine_Learning_Theory_Exam.pdf" target="_blank" class="btn-tactile px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-xl shadow flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>เปิดไฟล์ PDF รายงานฉบับสมบูรณ์ (8 หน้า)</span>
+          </a>
         </div>
 
-        <!-- 5-Member Team Table -->
-        <div class="mt-6 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800">
-              รายชื่อสมาชิกในกลุ่ม (5 คน) ตามข้อกำหนดส่งงาน
-            </h3>
-            <span class="text-xs text-brand-600 font-medium">* กำหนดให้หัวหน้ากลุ่มส่งงานเพียง 1 คน</span>
-          </div>
+        <!-- 4-Member Table -->
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <table class="w-full text-left text-xs border-collapse font-sans">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3 text-center w-12">ลำดับ</th>
+                <th class="p-3 w-28">บทบาท</th>
+                <th class="p-3">ชื่อ - นามสกุล</th>
+                <th class="p-3 font-mono">รหัสนิสิต</th>
+                <th class="p-3">หน้าที่รับผิดชอบ</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="bg-orange-50/40">
+                <td class="p-3 text-center font-bold text-brand-700">1</td>
+                <td class="p-3"><span class="badge bg-brand-100 text-brand-800">หัวหน้ากลุ่ม</span></td>
+                <td class="p-3 font-bold text-slate-900">นายณัฐวุฒิ พละศักดิ์</td>
+                <td class="p-3 font-mono font-semibold text-slate-700">67011211017</td>
+                <td class="p-3 text-slate-600">รวบรวมรายงาน, ส่งไฟล์ PDF, ตรวจสอบภาพรวม</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-center font-semibold text-slate-600">2</td>
+                <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
+                <td class="p-3 font-semibold text-slate-900">นายพงศกร ไชยรงศรี</td>
+                <td class="p-3 font-mono text-slate-700">67011211039</td>
+                <td class="p-3 text-slate-600">สรุปทฤษฎี & ตัวอย่างคำนวณ KNN Classification</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-center font-semibold text-slate-600">3</td>
+                <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
+                <td class="p-3 font-semibold text-slate-900">นายอนุรักษ์ งามจันอัด</td>
+                <td class="p-3 font-mono text-slate-700">67011211062</td>
+                <td class="p-3 text-slate-600">สรุปทฤษฎี & ตัวอย่างคำนวณ KNN Regression</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-center font-semibold text-slate-600">4</td>
+                <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
+                <td class="p-3 font-semibold text-slate-900">นายปภังกร กุศล</td>
+                <td class="p-3 font-mono text-slate-700">67011211035</td>
+                <td class="p-3 text-slate-600">สรุปทฤษฎี K-Means & พัฒนา Visualizations & GitHub Repo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <div class="overflow-x-auto border border-slate-200 rounded-xl">
-            <table class="w-full text-left text-xs border-collapse">
-              <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+        <!-- Comparative Matrix -->
+        <div class="space-y-2 pt-2">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+            ตารางเปรียบเทียบคุณสมบัติ 3 อัลกอริทึม
+          </h3>
+          <div class="overflow-x-auto border border-slate-200 rounded-xl text-xs">
+            <table class="w-full text-left border-collapse">
+              <thead class="bg-slate-100 text-slate-800 font-bold border-b border-slate-200">
                 <tr>
-                  <th class="p-3">ลำดับ</th>
-                  <th class="p-3">บทบาท</th>
-                  <th class="p-3">ชื่อ - นามสกุล</th>
-                  <th class="p-3">รหัสนิสิต</th>
-                  <th class="p-3">สาขาวิชา / คณะ</th>
-                  <th class="p-3">หน้าที่ที่รับผิดชอบ</th>
+                  <th class="p-2.5">คุณสมบัติ</th>
+                  <th class="p-2.5 bg-orange-50/70 text-orange-900">1) KNN Classification</th>
+                  <th class="p-2.5 bg-blue-50/70 text-blue-900">2) KNN Regression</th>
+                  <th class="p-2.5 bg-emerald-50/70 text-emerald-900">3) K-Means Clustering</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-200 font-sans">
-                <tr class="bg-amber-50/50">
-                  <td class="p-3 font-bold text-brand-700">1</td>
-                  <td class="p-3"><span class="badge bg-brand-100 text-brand-800">หัวหน้ากลุ่ม</span></td>
-                  <td class="p-3 font-semibold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 1]</td>
-                  <td class="p-3 font-mono text-slate-700">[รหัสนิสิต 1]</td>
-                  <td class="p-3 text-slate-600">วิทยาการข้อมูลและการวิเคราะห์</td>
-                  <td class="p-3 text-slate-600">รวบรวมรายงาน, ส่งไฟล์ PDF, ตรวจสอบภาพรวม</td>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr>
+                  <td class="p-2.5 font-semibold text-slate-900">การเรียนรู้</td>
+                  <td class="p-2.5">Supervised Learning</td>
+                  <td class="p-2.5">Supervised Learning</td>
+                  <td class="p-2.5">Unsupervised Learning</td>
                 </tr>
                 <tr>
-                  <td class="p-3 font-bold text-slate-600">2</td>
-                  <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
-                  <td class="p-3 font-semibold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 2]</td>
-                  <td class="p-3 font-mono text-slate-700">[รหัสนิสิต 2]</td>
-                  <td class="p-3 text-slate-600">วิทยาการข้อมูลและการวิเคราะห์</td>
-                  <td class="p-3 text-slate-600">สรุปทฤษฎี & คำนวณ KNN Classification</td>
+                  <td class="p-2.5 font-semibold text-slate-900">เป้าหมายผลลัพธ์</td>
+                  <td class="p-2.5">กลุ่มคุณภาพ (Discrete Class)</td>
+                  <td class="p-2.5">ตัวเลขต่อเนื่อง (Continuous Target)</td>
+                  <td class="p-2.5">ไม่มี Label (หาการเกาะกลุ่ม)</td>
                 </tr>
                 <tr>
-                  <td class="p-3 font-bold text-slate-600">3</td>
-                  <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
-                  <td class="p-3 font-semibold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 3]</td>
-                  <td class="p-3 font-mono text-slate-700">[รหัสนิสิต 3]</td>
-                  <td class="p-3 text-slate-600">วิทยาการข้อมูลและการวิเคราะห์</td>
-                  <td class="p-3 text-slate-600">สรุปทฤษฎี & คำนวณ KNN Regression</td>
+                  <td class="p-2.5 font-semibold text-slate-900">การสร้างโมเดล</td>
+                  <td class="p-2.5">Lazy Learning (ไม่เทรนล่วงหน้า)</td>
+                  <td class="p-2.5">Lazy Learning (ไม่เทรนล่วงหน้า)</td>
+                  <td class="p-2.5">Iterative Partitioning (หา Centroid)</td>
                 </tr>
                 <tr>
-                  <td class="p-3 font-bold text-slate-600">4</td>
-                  <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
-                  <td class="p-3 font-semibold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 4]</td>
-                  <td class="p-3 font-mono text-slate-700">[รหัสนิสิต 4]</td>
-                  <td class="p-3 text-slate-600">วิทยาการข้อมูลและการวิเคราะห์</td>
-                  <td class="p-3 text-slate-600">สรุปทฤษฎี & คำนวณ K-Means Clustering</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-bold text-slate-600">5</td>
-                  <td class="p-3"><span class="badge bg-slate-100 text-slate-700">สมาชิก</span></td>
-                  <td class="p-3 font-semibold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 5]</td>
-                  <td class="p-3 font-mono text-slate-700">[รหัสนิสิต 5]</td>
-                  <td class="p-3 text-slate-600">วิทยาการข้อมูลและการวิเคราะห์</td>
-                  <td class="p-3 text-slate-600">พัฒนา Interactive Visualizations & GitHub Repo</td>
+                  <td class="p-2.5 font-semibold text-slate-900">สูตรตัดสินใจ</td>
+                  <td class="p-2.5 font-mono text-[11px]">Majority / Weighted Vote</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\frac{1}{K}\sum y\) หรือ \(\frac{\sum wy}{\sum w}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\arg\min_j \|x - C_j\|^2\)</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-
-        <!-- Comparative Summary Table -->
-        <div class="mt-8 space-y-3">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800">
-            ตารางเปรียบเทียบคุณสมบัติทางทฤษฎีทั้ง 3 อัลกอริทึม
-          </h3>
-          <div class="overflow-x-auto border border-slate-200 rounded-xl">
-            <table class="w-full text-left text-xs border-collapse">
-              <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
-                <tr>
-                  <th class="p-3">คุณสมบัติ (Property)</th>
-                  <th class="p-3 text-amber-900 bg-amber-50/70">1) KNN Classification</th>
-                  <th class="p-3 text-blue-900 bg-blue-50/70">2) KNN Regression</th>
-                  <th class="p-3 text-emerald-900 bg-emerald-50/70">3) K-Means Clustering</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200">
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">ประเภทการเรียนรู้</td>
-                  <td class="p-3">Supervised Learning</td>
-                  <td class="p-3">Supervised Learning</td>
-                  <td class="p-3">Unsupervised Learning</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">เป้าหมายผลลัพธ์ (Target)</td>
-                  <td class="p-3">คลาส / กลุ่มเชิงคุณภาพ (Discrete Class)</td>
-                  <td class="p-3">ค่าตัวเลขต่อเนื่อง (Continuous Number)</td>
-                  <td class="p-3">ไม่มี Label (แบ่งกลุ่มตามความคล้าย)</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">การสร้างแบบจำลอง</td>
-                  <td class="p-3">Instance-Based / Lazy Learning</td>
-                  <td class="p-3">Instance-Based / Lazy Learning</td>
-                  <td class="p-3">Iterative Partitioning (Centroids)</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">สูตรการตัดสินใจ</td>
-                  <td class="p-3 font-mono text-[11px]">Majority Vote / \( \max \sum w_i \)</td>
-                  <td class="p-3 font-mono text-[11px]">\( \frac{1}{K}\sum y_i \) หรือ \( \frac{\sum w_i y_i}{\sum w_i} \)</td>
-                  <td class="p-3 font-mono text-[11px]">\( \arg\min_j \|x - C_j\|^2 \)</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">พารามิเตอร์สำคัญ</td>
-                  <td class="p-3">ค่า $K$ (จำนวนเพื่อนบ้าน), Distance Metric</td>
-                  <td class="p-3">ค่า $K$, Distance Metric, Weighting function</td>
-                  <td class="p-3">ค่า $K$ (จำนวนกลุ่ม), ตำแหน่ง Centroid เริ่มต้น</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">ข้อจำกัดหลัก</td>
-                  <td class="p-3">ใช้ Memory สูง, คำนวณช้า, Curse of Dimensionality</td>
-                  <td class="p-3">ไวต่อ Outliers, ไม่สามารถ Extrapolate นอกช่วงข้อมูล</td>
-                  <td class="p-3">ไวต่อ Initial Centroid (ติด Local Minima), ต้องระบุ K ก่อน</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Submission & GitHub Deployment Guide -->
-        <div class="mt-8 p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider flex items-center gap-2">
-            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-            คำแนะนำการนำขึ้น GitHub และส่งงานออนไลน์
-          </h3>
-          <ol class="text-xs text-slate-600 space-y-2 list-decimal list-inside leading-relaxed">
-            <li>สร้าง Repository ใหม่บน GitHub เช่น <code class="bg-white px-1.5 py-0.5 rounded border">Machine-Learning-Theory-Exam</code></li>
-            <li>Push โค้ดทั้งหมดในโฟลเดอร์นี้ขึ้น Repository (มีไฟล์ <code class="bg-white px-1.5 py-0.5 rounded border">index.html</code>, <code class="bg-white px-1.5 py-0.5 rounded border">Machine_Learning_Theory_Exam.pdf</code>, โฟลเดอร์ <code class="bg-white px-1.5 py-0.5 rounded border">src/</code> และ <code class="bg-white px-1.5 py-0.5 rounded border">figures/</code>)</li>
-            <li>ไปที่แท็บ <strong>Settings $\rightarrow$ Pages</strong> บน GitHub เลือก Branch เป็น <code class="bg-white px-1.5 py-0.5 rounded border">main</code> โฟลเดอร์ <code class="bg-white px-1.5 py-0.5 rounded border">/ (root)</code> แล้วกด Save</li>
-            <li>นำลิงก์ GitHub Pages ที่ได้ (เช่น <code class="bg-white px-1.5 py-0.5 rounded border">https://[username].github.io/Machine-Learning-Theory-Exam/</code>) และไฟล์ PDF ส่งให้อาจารย์ผ่านระบบ Google Classroom</li>
-          </ol>
         </div>
 
       </div>
@@ -952,17 +689,17 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- Global Footer -->
   <footer class="mt-16 border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 space-y-1">
-      <p class="font-semibold text-slate-700">Machine Learning Theory Examination (Midterm)</p>
-      <p>พัฒนาสำหรับส่งงานวิชา Machine Learning อ. ดร. โอฬาริก สุรินต๊ะ</p>
-      <p class="text-[11px] text-slate-400">รองรับการเข้าถึงออนไลน์แบบ 100% Client-Side Interactive บน GitHub Pages</p>
+      <p class="font-bold text-slate-700">Machine Learning Theory Examination (Midterm)</p>
+      <p>กลุ่มนิสิต: ณัฐวุฒิ, พงศกร, อนุรักษ์, ปภังกร | อาจารย์ ดร. โอฬาริก สุรินต๊ะ</p>
+      <p class="text-[11px] text-slate-400">พัฒนาด้วย Hallmark Editorial Design & AntV Visualization Engine</p>
     </div>
   </footer>
 
   <!-- ================================================================= -->
-  <!-- JAVASCRIPT: LOGIC & VISUALIZATION ENGINES -->
+  <!-- JAVASCRIPT: COMBINED ENGINES (CANVAS + ANTV G2) -->
   <!-- ================================================================= -->
   <script>
     // --- TAB SWITCHER ---
@@ -975,20 +712,20 @@
         if (t === tabId) {
           sec.classList.remove('hidden');
           if (btn) btn.className = "px-3.5 py-1.5 rounded-lg transition-colors tab-active";
-          if (mBtn) mBtn.className = "px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap tab-active";
+          if (mBtn) mBtn.className = "px-3 py-1.5 rounded-lg font-medium whitespace-nowrap tab-active";
         } else {
           sec.classList.add('hidden');
           if (btn) btn.className = "px-3.5 py-1.5 rounded-lg transition-colors text-slate-600 hover:text-slate-900";
-          if (mBtn) mBtn.className = "px-2.5 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600";
+          if (mBtn) mBtn.className = "px-3 py-1.5 rounded-lg font-medium whitespace-nowrap text-slate-600";
         }
       });
-      if (tabId === 'knn-cls') drawKnnCanvas();
-      if (tabId === 'knn-reg') drawRegCanvas();
-      if (tabId === 'kmeans') drawKmeansCanvas();
+      if (tabId === 'knn-cls') { drawKnnCanvas(); renderAntvKnnChart(); }
+      if (tabId === 'knn-reg') { drawRegCanvas(); renderAntvRegChart(); }
+      if (tabId === 'kmeans') { drawKmeansCanvas(); renderAntvKmeansChart(); }
     }
 
     // =================================================================
-    // 1. KNN CLASSIFICATION ENGINE
+    // 1. KNN CLASSIFICATION ENGINE + ANTV G2 BAR CHART
     // =================================================================
     let knnTrainPoints = [
       { name: 'A', x: 2, y: 3, cls: 'Class A' },
@@ -998,19 +735,16 @@
       { name: 'E', x: 5, y: 4, cls: 'Class A' }
     ];
     let knnQuery = { x: 4, y: 5 };
+    let antvKnnChartInstance = null;
 
     const knnCanvas = document.getElementById('knn-canvas');
     const knnCtx = knnCanvas.getContext('2d');
-
-    const knnScale = 45;
-    const knnOriginX = 40;
-    const knnOriginY = 460;
+    const knnScale = 43;
+    const knnOriginX = 35;
+    const knnOriginY = 445;
 
     function toKnnScreen(x, y) {
-      return {
-        sx: knnOriginX + x * knnScale,
-        sy: knnOriginY - y * knnScale
-      };
+      return { sx: knnOriginX + x * knnScale, sy: knnOriginY - y * knnScale };
     }
 
     function toKnnMath(sx, sy) {
@@ -1018,6 +752,12 @@
         mx: Math.max(0, Math.min(10, (sx - knnOriginX) / knnScale)),
         my: Math.max(0, Math.min(10, (knnOriginY - sy) / knnScale))
       };
+    }
+
+    function getKnnColor(cls) {
+      if (cls === 'Class A' || cls === 'Class 0') return '#dc2626';
+      if (cls === 'Class B' || cls === 'Class 1') return '#1e40af';
+      return '#059669';
     }
 
     function loadKnnDataset(type) {
@@ -1031,7 +771,7 @@
         ];
         knnQuery = { x: 4, y: 5 };
         document.getElementById('knn-k-slider').value = 3;
-      } else if (type === 'multiclass') {
+      } else {
         knnTrainPoints = [
           { name: '1', x: 1, y: 2, cls: 'Class 0' },
           { name: '2', x: 2, y: 3, cls: 'Class 0' },
@@ -1084,23 +824,18 @@
       updateKnn();
     });
 
-    function getKnnColor(cls) {
-      if (cls === 'Class A' || cls === 'Class 0') return '#e63946';
-      if (cls === 'Class B' || cls === 'Class 1') return '#1d3557';
-      return '#2a9d8f'; // Class C or Class 2
-    }
+    let currentKnnDistList = [];
 
     function updateKnn() {
       const k = parseInt(document.getElementById('knn-k-slider').value);
       document.getElementById('knn-k-val').innerText = k;
-      document.getElementById('knn-query-coord').innerText = `(${knnQuery.x}, ${knnQuery.y})`;
+      document.getElementById('knn-query-coord').innerText = `Query: (${knnQuery.x}, ${knnQuery.y})`;
 
       const mode = document.getElementById('knn-vote-mode').value;
       const metric = document.getElementById('knn-dist-metric').value;
       const epsilon = 1e-5;
 
-      // Calculate distances
-      const distList = knnTrainPoints.map(p => {
+      currentKnnDistList = knnTrainPoints.map(p => {
         let d = 0;
         if (metric === 'euclidean') {
           d = Math.sqrt(Math.pow(knnQuery.x - p.x, 2) + Math.pow(knnQuery.y - p.y, 2));
@@ -1111,10 +846,10 @@
         return { ...p, d, w };
       });
 
-      distList.sort((a, b) => a.d - b.d);
-      const topK = distList.slice(0, Math.min(k, distList.length));
+      currentKnnDistList.sort((a, b) => a.d - b.d);
+      const topK = currentKnnDistList.slice(0, Math.min(k, currentKnnDistList.length));
 
-      // Voting calculation
+      // Vote
       const votes = {};
       topK.forEach(item => {
         const score = mode === 'majority' ? 1 : item.w;
@@ -1130,44 +865,44 @@
         }
       }
 
-      document.getElementById('knn-pred-class').innerText = winner;
-      document.getElementById('knn-pred-class').style.color = getKnnColor(winner);
+      const predEl = document.getElementById('knn-pred-class');
+      predEl.innerText = winner;
+      predEl.style.color = getKnnColor(winner);
       if (mode === 'majority') {
-        document.getElementById('knn-pred-detail').innerText = `คะแนนโหวต: ${maxScore}/${topK.length} เสียง`;
+        document.getElementById('knn-pred-detail').innerText = `${maxScore}/${topK.length} เสียงข้างมาก`;
       } else {
-        document.getElementById('knn-pred-detail').innerText = `น้ำหนักรวม: ${maxScore.toFixed(4)}`;
+        document.getElementById('knn-pred-detail').innerText = `น้ำหนักรวม: ${maxScore.toFixed(3)}`;
       }
 
       // Populate Table
-      const tableBody = document.getElementById('knn-table-body');
-      tableBody.innerHTML = '';
-      distList.forEach((item, idx) => {
+      const tBody = document.getElementById('knn-table-body');
+      tBody.innerHTML = '';
+      currentKnnDistList.forEach((item, idx) => {
         const isTop = idx < k;
-        const row = document.createElement('tr');
-        if (isTop) row.className = 'bg-orange-50/60 font-semibold';
-        row.innerHTML = `
-          <td class="p-2">${item.name} (${item.x},${item.y})</td>
-          <td class="p-2" style="color:${getKnnColor(item.cls)}">${item.cls}</td>
-          <td class="p-2">${item.d.toFixed(3)}</td>
-          <td class="p-2">${item.w.toFixed(3)}</td>
-          <td class="p-2 text-right">
+        const tr = document.createElement('tr');
+        if (isTop) tr.className = 'bg-orange-50/60 font-semibold';
+        tr.innerHTML = `
+          <td class="p-1.5">${item.name} (${item.x},${item.y})</td>
+          <td class="p-1.5 font-bold" style="color:${getKnnColor(item.cls)}">${item.cls}</td>
+          <td class="p-1.5">${item.d.toFixed(3)}</td>
+          <td class="p-1.5 text-right">
             ${isTop ? `<span class="badge bg-brand-100 text-brand-800">เลือก #${idx+1}</span>` : `<span class="text-slate-400">-</span>`}
           </td>
         `;
-        tableBody.appendChild(row);
+        tBody.appendChild(tr);
       });
 
       drawKnnCanvas(topK);
+      renderAntvKnnChart();
     }
 
     function drawKnnCanvas(topK = []) {
       knnCtx.clearRect(0, 0, knnCanvas.width, knnCanvas.height);
 
-      // Grid lines & Axes
+      // Grid
       knnCtx.strokeStyle = '#e2e8f0';
       knnCtx.lineWidth = 1;
       for (let i = 0; i <= 10; i++) {
-        // Vertical
         const p1 = toKnnScreen(i, 0);
         const p2 = toKnnScreen(i, 10);
         knnCtx.beginPath();
@@ -1175,7 +910,6 @@
         knnCtx.lineTo(p2.sx, p2.sy);
         knnCtx.stroke();
 
-        // Horizontal
         const h1 = toKnnScreen(0, i);
         const h2 = toKnnScreen(10, i);
         knnCtx.beginPath();
@@ -1183,40 +917,28 @@
         knnCtx.lineTo(h2.sx, h2.sy);
         knnCtx.stroke();
 
-        // Labels
         knnCtx.fillStyle = '#94a3b8';
         knnCtx.font = '10px "Fira Code", monospace';
-        knnCtx.fillText(i, p1.sx - 3, p1.sy + 15);
+        knnCtx.fillText(i, p1.sx - 3, p1.sy + 14);
         if (i > 0) knnCtx.fillText(i, h1.sx - 18, h1.sy + 3);
       }
 
-      // Main Axes
-      const o = toKnnScreen(0, 0);
-      knnCtx.strokeStyle = '#64748b';
-      knnCtx.lineWidth = 2;
-      knnCtx.beginPath();
-      knnCtx.moveTo(o.sx, o.sy);
-      knnCtx.lineTo(toKnnScreen(10.2, 0).sx, o.sy);
-      knnCtx.moveTo(o.sx, o.sy);
-      knnCtx.lineTo(o.sx, toKnnScreen(0, 10.2).sy);
-      knnCtx.stroke();
-
-      // Radius Circle for Top K
+      // Radius circle for top-K
       const qScreen = toKnnScreen(knnQuery.x, knnQuery.y);
       if (topK.length > 0) {
         const maxDist = topK[topK.length - 1].d;
         knnCtx.beginPath();
         knnCtx.arc(qScreen.sx, qScreen.sy, maxDist * knnScale, 0, Math.PI * 2);
-        knnCtx.fillStyle = 'rgba(234, 88, 12, 0.06)';
+        knnCtx.fillStyle = 'rgba(234, 88, 12, 0.07)';
         knnCtx.fill();
-        knnCtx.strokeStyle = 'rgba(234, 88, 12, 0.6)';
+        knnCtx.strokeStyle = '#ea580c';
         knnCtx.setLineDash([4, 4]);
         knnCtx.lineWidth = 1.5;
         knnCtx.stroke();
         knnCtx.setLineDash([]);
       }
 
-      // Connecting lines to top K
+      // Connecting lines
       topK.forEach(target => {
         const tScreen = toKnnScreen(target.x, target.y);
         knnCtx.beginPath();
@@ -1227,7 +949,7 @@
         knnCtx.stroke();
       });
 
-      // Draw Training Points
+      // Training Points
       knnTrainPoints.forEach(p => {
         const s = toKnnScreen(p.x, p.y);
         knnCtx.beginPath();
@@ -1238,13 +960,12 @@
         knnCtx.lineWidth = 2;
         knnCtx.stroke();
 
-        // Label
         knnCtx.fillStyle = '#0f172a';
         knnCtx.font = 'bold 10px "Prompt", sans-serif';
-        knnCtx.fillText(`${p.name} (${p.x},${p.y})`, s.sx + 9, s.sy + 3);
+        knnCtx.fillText(`${p.name}`, s.sx + 9, s.sy + 3);
       });
 
-      // Draw Query Point (Star)
+      // Query Point (Star)
       knnCtx.beginPath();
       knnCtx.arc(qScreen.sx, qScreen.sy, 9, 0, Math.PI * 2);
       knnCtx.fillStyle = '#f59e0b';
@@ -1254,14 +975,60 @@
       knnCtx.stroke();
 
       knnCtx.fillStyle = '#1e293b';
-      knnCtx.font = 'bold 12px "Prompt", sans-serif';
-      knnCtx.fillText(`★ Query (${knnQuery.x}, ${knnQuery.y})`, qScreen.sx + 12, qScreen.sy - 8);
+      knnCtx.font = 'bold 11px "Prompt", sans-serif';
+      knnCtx.fillText(`★ Query`, qScreen.sx + 12, qScreen.sy - 6);
+    }
+
+    // AntV G2 Chart for KNN Proximity
+    function renderAntvKnnChart() {
+      const container = document.getElementById('antv-knn-container');
+      if (!container || !window.G2) return;
+      container.innerHTML = '';
+
+      const k = parseInt(document.getElementById('knn-k-slider').value);
+      const chartData = currentKnnDistList.map((item, idx) => ({
+        point: item.name,
+        distance: parseFloat(item.d.toFixed(2)),
+        isNeighbor: idx < k ? 'ใกล้ที่สุด K ตัว' : 'จุดอื่น'
+      }));
+
+      try {
+        const chart = new G2.Chart({
+          container: 'antv-knn-container',
+          autoFit: true,
+          padding: 'auto'
+        });
+
+        chart.options({
+          type: 'interval',
+          data: chartData,
+          encode: {
+            x: 'point',
+            y: 'distance',
+            color: 'isNeighbor'
+          },
+          scale: {
+            color: {
+              range: ['#ea580c', '#cbd5e1']
+            }
+          },
+          axis: {
+            x: { title: 'จุด' },
+            y: { title: 'ระยะห่าง' }
+          },
+          legend: false
+        });
+
+        chart.render();
+      } catch (err) {
+        console.warn('AntV G2 KNN Chart error:', err);
+      }
     }
 
     // =================================================================
-    // 2. KNN REGRESSION ENGINE
+    // 2. KNN REGRESSION ENGINE + ANTV WEIGHTS CHART
     // =================================================================
-    const houseTrainingData = [
+    const houseData = [
       { id: 1, area: 50, beds: 1, price: 950 },
       { id: 2, area: 60, beds: 1, price: 1050 },
       { id: 3, area: 80, beds: 2, price: 1300 },
@@ -1274,17 +1041,15 @@
       { id: 10, area: 75, beds: 2, price: 1250 }
     ];
 
-    let currentRegData = houseTrainingData.map(h => ({ x: h.area, y: h.price, id: h.id, beds: h.beds }));
+    let currentRegData = houseData.map(h => ({ x: h.area, y: h.price, id: h.id, beds: h.beds }));
     let regQueryX = 72;
-
     const regCanvas = document.getElementById('reg-canvas');
     const regCtx = regCanvas.getContext('2d');
-
     const regMinX = 40, regMaxX = 110;
     const regMinY = 800, regMaxY = 1800;
 
     function toRegScreen(x, y) {
-      const margin = 50;
+      const margin = 45;
       const w = regCanvas.width - margin * 2;
       const h = regCanvas.height - margin * 2;
       const sx = margin + ((x - regMinX) / (regMaxX - regMinX)) * w;
@@ -1293,7 +1058,7 @@
     }
 
     function toRegMathX(sx) {
-      const margin = 50;
+      const margin = 45;
       const w = regCanvas.width - margin * 2;
       return regMinX + ((sx - margin) / w) * (regMaxX - regMinX);
     }
@@ -1311,12 +1076,11 @@
 
     function loadRegDataset(preset) {
       if (preset === 'house') {
-        currentRegData = houseTrainingData.map(h => ({ x: h.area, y: h.price, id: h.id, beds: h.beds }));
+        currentRegData = houseData.map(h => ({ x: h.area, y: h.price, id: h.id, beds: h.beds }));
         regQueryX = 72;
         document.getElementById('reg-x-slider').value = 72;
         document.getElementById('reg-k-slider').value = 5;
       } else {
-        // Non-linear dataset
         currentRegData = [];
         for (let x = 45; x <= 105; x += 6) {
           const y = 1200 + 350 * Math.sin((x - 45) / 10) + (Math.random() * 50 - 25);
@@ -1326,6 +1090,8 @@
       updateRegression();
     }
 
+    let currentRegTopK = [];
+
     function updateRegression() {
       regQueryX = parseFloat(document.getElementById('reg-x-slider').value);
       const k = parseInt(document.getElementById('reg-k-slider').value);
@@ -1333,64 +1099,33 @@
       document.getElementById('reg-k-val').innerText = k;
 
       const epsilon = 1e-5;
-
-      // Distance calculation from regQueryX
-      // In the slide example (Slide 27-29), the query is [72, 2].
-      // For houses with 2 bedrooms (Index 7, 10, 9, 3, 6), distances are |72 - area|
       const distList = currentRegData.map(pt => {
-        let d = 0;
-        if (pt.beds !== undefined) {
-          // 2D distance: Area and Bedrooms (query has 2 bedrooms)
-          d = Math.sqrt(Math.pow(regQueryX - pt.x, 2) + Math.pow(2 - pt.beds, 2));
-        } else {
-          d = Math.abs(regQueryX - pt.x);
-        }
+        let d = pt.beds ? Math.sqrt(Math.pow(regQueryX - pt.x, 2) + Math.pow(2 - pt.beds, 2)) : Math.abs(regQueryX - pt.x);
         const w = 1.0 / (Math.pow(d, 2) + epsilon);
         return { ...pt, d, w };
       });
 
       distList.sort((a, b) => a.d - b.d);
-      const topK = distList.slice(0, k);
+      currentRegTopK = distList.slice(0, k);
 
-      // Simple Mean
-      const simplePred = topK.reduce((sum, item) => sum + item.y, 0) / k;
-      // Weighted Mean
-      const num = topK.reduce((sum, item) => sum + item.w * item.y, 0);
-      const den = topK.reduce((sum, item) => sum + item.w, 0);
+      const simplePred = currentRegTopK.reduce((s, it) => s + it.y, 0) / k;
+      const num = currentRegTopK.reduce((s, it) => s + it.w * it.y, 0);
+      const den = currentRegTopK.reduce((s, it) => s + it.w, 0);
       const weightedPred = num / den;
 
       document.getElementById('reg-pred-simple').innerText = simplePred.toFixed(2);
       document.getElementById('reg-pred-weighted').innerText = weightedPred.toFixed(2);
 
-      document.getElementById('reg-calc-num').innerText = `${topK.map(item => `(${item.w.toFixed(4)} × ${item.y})`).join(' + ')} = ${num.toFixed(2)}`;
-      document.getElementById('reg-calc-den').innerText = `${topK.map(item => item.w.toFixed(4)).join(' + ')} = ${den.toFixed(4)}`;
-
-      // Populate Table
-      const tBody = document.getElementById('reg-table-body');
-      tBody.innerHTML = '';
-      topK.forEach((item, r) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="p-1.5 font-bold">#${item.id || r+1}</td>
-          <td class="p-1.5">${item.x} ${item.beds ? `(${item.beds}b)` : ''}</td>
-          <td class="p-1.5 font-semibold text-slate-800">${item.y}k</td>
-          <td class="p-1.5 text-blue-600">${item.d.toFixed(2)}</td>
-          <td class="p-1.5 text-brand-600">${item.w.toFixed(4)}</td>
-        `;
-        tBody.appendChild(tr);
-      });
-
-      drawRegCanvas(topK, weightedPred);
+      drawRegCanvas(currentRegTopK, weightedPred);
+      renderAntvRegChart();
     }
 
     function drawRegCanvas(topK = [], queryPred = 0) {
       regCtx.clearRect(0, 0, regCanvas.width, regCanvas.height);
 
-      // Axes & Grid
+      // Grid
       regCtx.strokeStyle = '#e2e8f0';
       regCtx.lineWidth = 1;
-
-      // X grid
       for (let x = 40; x <= 110; x += 10) {
         const p1 = toRegScreen(x, regMinY);
         const p2 = toRegScreen(x, regMaxY);
@@ -1400,10 +1135,8 @@
         regCtx.stroke();
         regCtx.fillStyle = '#94a3b8';
         regCtx.font = '10px "Fira Code", monospace';
-        regCtx.fillText(x, p1.sx - 7, p1.sy + 18);
+        regCtx.fillText(x, p1.sx - 7, p1.sy + 16);
       }
-
-      // Y grid
       for (let y = 800; y <= 1800; y += 200) {
         const p1 = toRegScreen(regMinX, y);
         const p2 = toRegScreen(regMaxX, y);
@@ -1413,17 +1146,15 @@
         regCtx.stroke();
         regCtx.fillStyle = '#94a3b8';
         regCtx.font = '10px "Fira Code", monospace';
-        regCtx.fillText(`${y}k`, p1.sx - 35, p1.sy + 3);
+        regCtx.fillText(`${y}k`, p1.sx - 32, p1.sy + 3);
       }
 
       // Continuous Curve for Weighted KNN
       const k = parseInt(document.getElementById('reg-k-slider').value);
       const epsilon = 1e-5;
-
       regCtx.beginPath();
       regCtx.strokeStyle = '#c2410c';
       regCtx.lineWidth = 2.5;
-
       for (let cx = 45; cx <= 105; cx += 1) {
         const curDists = currentRegData.map(pt => {
           const d = pt.beds ? Math.sqrt(Math.pow(cx - pt.x, 2) + Math.pow(2 - pt.beds, 2)) : Math.abs(cx - pt.x);
@@ -1445,7 +1176,7 @@
         const s = toRegScreen(pt.x, pt.y);
         regCtx.beginPath();
         regCtx.arc(s.sx, s.sy, 6, 0, Math.PI * 2);
-        regCtx.fillStyle = '#1d3557';
+        regCtx.fillStyle = '#1e40af';
         regCtx.fill();
         regCtx.strokeStyle = '#ffffff';
         regCtx.lineWidth = 1.5;
@@ -1456,36 +1187,65 @@
       topK.forEach(item => {
         const s = toRegScreen(item.x, item.y);
         regCtx.beginPath();
-        regCtx.arc(s.sx, s.sy, 11, 0, Math.PI * 2);
+        regCtx.arc(s.sx, s.sy, 10, 0, Math.PI * 2);
         regCtx.strokeStyle = '#ea580c';
         regCtx.lineWidth = 2;
         regCtx.stroke();
       });
 
-      // Query Target Point
+      // Target Predicted Point
       const qScreen = toRegScreen(regQueryX, queryPred);
       regCtx.beginPath();
-      regCtx.arc(qScreen.sx, qScreen.sy, 9, 0, Math.PI * 2);
+      regCtx.arc(qScreen.sx, qScreen.sy, 8, 0, Math.PI * 2);
       regCtx.fillStyle = '#ea580c';
       regCtx.fill();
       regCtx.strokeStyle = '#ffffff';
       regCtx.lineWidth = 2;
       regCtx.stroke();
+    }
 
-      // Droplines
-      regCtx.setLineDash([4, 4]);
-      regCtx.strokeStyle = '#ea580c';
-      regCtx.lineWidth = 1.5;
-      regCtx.beginPath();
-      regCtx.moveTo(qScreen.sx, toRegScreen(regQueryX, regMinY).sy);
-      regCtx.lineTo(qScreen.sx, qScreen.sy);
-      regCtx.lineTo(toRegScreen(regMinX, queryPred).sx, qScreen.sy);
-      regCtx.stroke();
-      regCtx.setLineDash([]);
+    // AntV G2 Chart for Regression Weights
+    function renderAntvRegChart() {
+      const container = document.getElementById('antv-reg-container');
+      if (!container || !window.G2) return;
+      container.innerHTML = '';
+
+      const chartData = currentRegTopK.map((item, idx) => ({
+        neighbor: `บ้าน #${item.id || idx+1}`,
+        weight: parseFloat(item.w.toFixed(4)),
+        price: `${item.y}k`
+      }));
+
+      try {
+        const chart = new G2.Chart({
+          container: 'antv-reg-container',
+          autoFit: true,
+          padding: 'auto'
+        });
+
+        chart.options({
+          type: 'interval',
+          data: chartData,
+          encode: {
+            x: 'neighbor',
+            y: 'weight',
+            color: '#c2410c'
+          },
+          axis: {
+            x: { title: 'เพื่อนบ้าน K ตัว' },
+            y: { title: 'ค่าน้ำหนัก (w)' }
+          },
+          legend: false
+        });
+
+        chart.render();
+      } catch (err) {
+        console.warn('AntV G2 Reg Chart error:', err);
+      }
     }
 
     // =================================================================
-    // 3. K-MEANS CLUSTERING ENGINE
+    // 3. K-MEANS CLUSTERING ENGINE + ANTV DISTRIBUTION CHART
     // =================================================================
     const slideKmeansPoints = [
       { name: 'A', x: 2, y: 3 },
@@ -1498,23 +1258,20 @@
 
     let kmeansPoints = [...slideKmeansPoints];
     let kmeansK = 2;
-    let kmeansCentroids = [
-      { x: 2.0, y: 3.0 },
-      { x: 9.0, y: 9.0 }
-    ];
+    let kmeansCentroids = [{ x: 2.0, y: 3.0 }, { x: 9.0, y: 9.0 }];
     let kmeansAssignments = [];
-    let kmeansStep = 0; // 0: init, 1: assigned, 2: updated
+    let kmeansStep = 0;
     let kmeansIter = 0;
     let kmeansIsPlaying = false;
     let kmeansPlayTimer = null;
 
     const kmeansCanvas = document.getElementById('kmeans-canvas');
     const kmeansCtx = kmeansCanvas.getContext('2d');
-    const kmColors = ['#1d3557', '#2a9d8f', '#e76f51', '#9b5de5', '#f59e0b'];
+    const kmColors = ['#1e40af', '#059669', '#ea580c', '#7c3aed'];
 
     function toKmScreen(x, y) {
-      const scale = 38;
-      const ox = 40, oy = 460;
+      const scale = 36;
+      const ox = 35, oy = 445;
       return { sx: ox + x * scale, sy: oy - y * scale };
     }
 
@@ -1524,11 +1281,10 @@
         kmeansK = 2;
         kmeansCentroids = [{ x: 2.0, y: 3.0 }, { x: 9.0, y: 9.0 }];
       } else {
-        // Blobs
         kmeansPoints = [];
-        const centers = [{x: 2, y: 2}, {x: 5, y: 7}, {x: 8, y: 3}];
+        const centers = [{x: 2, y: 2}, {x: 6, y: 8}, {x: 8, y: 3}];
         centers.forEach((c, idx) => {
-          for (let i = 0; i < 8; i++) {
+          for (let i = 0; i < 7; i++) {
             kmeansPoints.push({
               name: `P${kmeansPoints.length+1}`,
               x: parseFloat((c.x + (Math.random() * 2 - 1)).toFixed(1)),
@@ -1539,8 +1295,8 @@
         kmeansK = 3;
         kmeansCentroids = [
           { x: kmeansPoints[0].x, y: kmeansPoints[0].y },
-          { x: kmeansPoints[10].x, y: kmeansPoints[10].y },
-          { x: kmeansPoints[20].x, y: kmeansPoints[20].y }
+          { x: kmeansPoints[7].x, y: kmeansPoints[7].y },
+          { x: kmeansPoints[14].x, y: kmeansPoints[14].y }
         ];
       }
       changeKmeansK(kmeansK);
@@ -1552,8 +1308,8 @@
       [2, 3, 4].forEach(val => {
         const btn = document.getElementById(`k-btn-${val}`);
         if (btn) {
-          if (val === newK) btn.className = "px-2.5 py-1 rounded border bg-brand-50 text-brand-700 border-brand-300 font-bold";
-          else btn.className = "px-2.5 py-1 rounded border border-slate-300 text-slate-600";
+          if (val === newK) btn.className = "px-2.5 py-1 rounded-lg border bg-brand-50 text-brand-700 border-brand-300 font-bold";
+          else btn.className = "px-2.5 py-1 rounded-lg border border-slate-300 text-slate-600";
         }
       });
       resetKmeans();
@@ -1566,7 +1322,6 @@
       if (kmeansK === 2 && kmeansPoints.length === 6) {
         kmeansCentroids = [{ x: 2.0, y: 3.0 }, { x: 9.0, y: 9.0 }];
       } else {
-        // Pick k points
         kmeansCentroids = [];
         for (let i = 0; i < kmeansK; i++) {
           const pt = kmeansPoints[Math.floor(i * (kmeansPoints.length / kmeansK))];
@@ -1576,27 +1331,25 @@
       kmeansAssignments = kmeansPoints.map(() => 0);
       updateKmeansUI();
       drawKmeansCanvas();
+      renderAntvKmeansChart();
     }
 
     function stepKmeans() {
       if (kmeansStep === 0 || kmeansStep === 2) {
-        // Step: Assignment
+        // Step 1: Assign
         kmeansAssignments = kmeansPoints.map(pt => {
           let minDist = Infinity;
-          let bestCluster = 0;
+          let best = 0;
           kmeansCentroids.forEach((c, idx) => {
             const d = Math.sqrt(Math.pow(pt.x - c.x, 2) + Math.pow(pt.y - c.y, 2));
-            if (d < minDist) {
-              minDist = d;
-              bestCluster = idx;
-            }
+            if (d < minDist) { minDist = d; best = idx; }
           });
-          return bestCluster;
+          return best;
         });
         kmeansStep = 1;
         kmeansIter++;
-      } else if (kmeansStep === 1) {
-        // Step: Update Centroids
+      } else {
+        // Step 2: Update
         let converged = true;
         for (let j = 0; j < kmeansK; j++) {
           const members = kmeansPoints.filter((_, i) => kmeansAssignments[i] === j);
@@ -1610,13 +1363,14 @@
         }
         kmeansStep = 2;
         if (converged) {
-          document.getElementById('kmeans-status-badge').innerText = `✓ ลู่เข้าสมบูรณ์ (Converged) ในรอบที่ ${kmeansIter}`;
-          document.getElementById('kmeans-status-badge').className = "badge bg-emerald-100 text-emerald-800";
+          document.getElementById('kmeans-status-badge').innerText = `✓ ลู่เข้าสมบูรณ์ (Converged) รอบที่ ${kmeansIter}`;
+          document.getElementById('kmeans-status-badge').className = "badge bg-emerald-100 text-emerald-800 font-bold";
           if (kmeansIsPlaying) togglePlayKmeans();
         }
       }
       updateKmeansUI();
       drawKmeansCanvas();
+      renderAntvKmeansChart();
     }
 
     function togglePlayKmeans() {
@@ -1624,13 +1378,11 @@
       const btn = document.getElementById('kmeans-play-btn');
       if (kmeansIsPlaying) {
         btn.innerText = '⏸ หยุดชั่วคราว';
-        btn.className = 'px-3.5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-lg transition shadow';
-        kmeansPlayTimer = setInterval(() => {
-          stepKmeans();
-        }, 1200);
+        btn.className = 'btn-tactile px-3.5 py-2.5 bg-amber-600 text-white font-bold text-xs rounded-xl shadow';
+        kmeansPlayTimer = setInterval(stepKmeans, 1100);
       } else {
         btn.innerText = '▶ เล่นอัตโนมัติ';
-        btn.className = 'px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-lg transition shadow';
+        btn.className = 'btn-tactile px-3.5 py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl shadow';
         clearInterval(kmeansPlayTimer);
       }
     }
@@ -1641,17 +1393,17 @@
       const badge = document.getElementById('kmeans-status-badge');
 
       if (kmeansStep === 0) {
-        stepText.innerText = '0. เริ่มต้นกำหนด Centroid';
-        sumText.innerText = 'กำหนดตำแหน่งจุดศูนย์กลางเริ่มต้น (Initial Centroids) ตามที่สไลด์ระบุ';
+        stepText.innerText = '0. กำหนด Centroid เริ่มต้น';
+        sumText.innerText = 'กำหนดตำแหน่งศูนย์กลางเริ่มต้นตามที่ระบุในโจทย์สไลด์ C1(2,3) และ C2(9,9)';
         badge.innerText = `รอบที่ 0: เริ่มต้น`;
-        badge.className = "badge bg-amber-100 text-amber-800";
+        badge.className = "badge bg-amber-100 text-amber-900";
       } else if (kmeansStep === 1) {
         stepText.innerText = `รอบที่ ${kmeansIter}: Cluster Assignment`;
-        sumText.innerText = `คำนวณระยะห่างไปยัง Centroid ทุกตัว แล้วมอบหมายจุดข้อมูลให้สังกัดคลัสเตอร์ที่ใกล้ที่สุด`;
-        badge.innerText = `รอบที่ ${kmeansIter}: จัดกลุ่มแล้ว`;
-      } else if (kmeansStep === 2) {
+        sumText.innerText = `คำนวณระยะห่างไปยัง Centroid ทุกตัว แล้วจัดให้จุดสังกัดคลัสเตอร์ที่ใกล้ที่สุด`;
+        badge.innerText = `รอบที่ ${kmeansIter}: มอบหมายกลุ่มแล้ว`;
+      } else {
         stepText.innerText = `รอบที่ ${kmeansIter}: Update Centroid`;
-        sumText.innerText = `คำนวณค่าเฉลี่ย (Mean) ของสมาชิกในแต่ละคลัสเตอร์เพื่อขยับตำแหน่ง Centroid ใหม่`;
+        sumText.innerText = `คำนวณพิกัดเฉลี่ย (Mean) ของสมาชิกในแต่ละกลุ่ม เพื่อขยับ Centroid ไปยังตำแหน่งใหม่`;
       }
 
       // Centroid Table
@@ -1661,28 +1413,11 @@
         const count = kmeansAssignments.filter(a => a === idx).length;
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="p-2 font-bold" style="color:${kmColors[idx]}">Centroid ${idx+1}</td>
-          <td class="p-2">(${c.x.toFixed(2)}, ${c.y.toFixed(2)})</td>
-          <td class="p-2 text-right font-semibold">${count} จุด</td>
+          <td class="p-1.5 font-bold" style="color:${kmColors[idx]}">C${idx+1}</td>
+          <td class="p-1.5">(${c.x.toFixed(2)}, ${c.y.toFixed(2)})</td>
+          <td class="p-1.5 text-right font-bold">${count} จุด</td>
         `;
         cBody.appendChild(tr);
-      });
-
-      // Distance Table
-      const dTable = document.getElementById('kmeans-dist-table');
-      dTable.innerHTML = '';
-      kmeansPoints.forEach((pt, i) => {
-        const d1 = Math.sqrt(Math.pow(pt.x - kmeansCentroids[0].x, 2) + Math.pow(pt.y - kmeansCentroids[0].y, 2));
-        const d2 = kmeansCentroids[1] ? Math.sqrt(Math.pow(pt.x - kmeansCentroids[1].x, 2) + Math.pow(pt.y - kmeansCentroids[1].y, 2)) : 0;
-        const assigned = kmeansAssignments[i];
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="p-1.5 font-bold">${pt.name} (${pt.x},${pt.y})</td>
-          <td class="p-1.5">${d1.toFixed(2)}</td>
-          <td class="p-1.5">${d2.toFixed(2)}</td>
-          <td class="p-1.5 text-right font-bold" style="color:${kmColors[assigned]}">กลุ่ม ${assigned+1}</td>
-        `;
-        dTable.appendChild(tr);
       });
     }
 
@@ -1706,14 +1441,9 @@
         kmeansCtx.moveTo(h1.sx, h1.sy);
         kmeansCtx.lineTo(h2.sx, h2.sy);
         kmeansCtx.stroke();
-
-        kmeansCtx.fillStyle = '#94a3b8';
-        kmeansCtx.font = '10px "Fira Code", monospace';
-        kmeansCtx.fillText(i, p1.sx - 3, p1.sy + 14);
-        if (i > 0) kmeansCtx.fillText(i, h1.sx - 18, h1.sy + 3);
       }
 
-      // Connecting lines from points to assigned centroids
+      // Connecting lines
       if (kmeansStep > 0) {
         kmeansPoints.forEach((pt, i) => {
           const c = kmeansCentroids[kmeansAssignments[i]];
@@ -1734,13 +1464,13 @@
         });
       }
 
-      // Draw Data Points
+      // Points
       kmeansPoints.forEach((pt, i) => {
         const s = toKmScreen(pt.x, pt.y);
-        const clusterColor = kmeansStep > 0 ? kmColors[kmeansAssignments[i]] : '#64748b';
+        const color = kmeansStep > 0 ? kmColors[kmeansAssignments[i]] : '#64748b';
         kmeansCtx.beginPath();
         kmeansCtx.arc(s.sx, s.sy, 7, 0, Math.PI * 2);
-        kmeansCtx.fillStyle = clusterColor;
+        kmeansCtx.fillStyle = color;
         kmeansCtx.fill();
         kmeansCtx.strokeStyle = '#ffffff';
         kmeansCtx.lineWidth = 2;
@@ -1748,16 +1478,15 @@
 
         kmeansCtx.fillStyle = '#0f172a';
         kmeansCtx.font = 'bold 10px "Prompt", sans-serif';
-        kmeansCtx.fillText(`${pt.name} (${pt.x},${pt.y})`, s.sx + 9, s.sy + 3);
+        kmeansCtx.fillText(`${pt.name}`, s.sx + 9, s.sy + 3);
       });
 
-      // Draw Centroids (Cross Marks)
+      // Centroids (Cross)
       kmeansCentroids.forEach((c, idx) => {
         const s = toKmScreen(c.x, c.y);
-        const size = 12;
-
+        const size = 11;
         kmeansCtx.strokeStyle = '#dc2626';
-        kmeansCtx.lineWidth = 4;
+        kmeansCtx.lineWidth = 3.5;
         kmeansCtx.beginPath();
         kmeansCtx.moveTo(s.sx - size, s.sy - size);
         kmeansCtx.lineTo(s.sx + size, s.sy + size);
@@ -1765,20 +1494,58 @@
         kmeansCtx.lineTo(s.sx - size, s.sy + size);
         kmeansCtx.stroke();
 
-        // White border
-        kmeansCtx.strokeStyle = '#ffffff';
-        kmeansCtx.lineWidth = 1.5;
-        kmeansCtx.beginPath();
-        kmeansCtx.arc(s.sx, s.sy, size + 2, 0, Math.PI * 2);
-        kmeansCtx.stroke();
-
         kmeansCtx.fillStyle = '#dc2626';
-        kmeansCtx.font = 'bold 12px "Prompt", sans-serif';
-        kmeansCtx.fillText(`C${idx+1} (${c.x.toFixed(2)}, ${c.y.toFixed(2)})`, s.sx + 14, s.sy - 8);
+        kmeansCtx.font = 'bold 11px "Prompt", sans-serif';
+        kmeansCtx.fillText(`C${idx+1}`, s.sx + 13, s.sy - 6);
       });
     }
 
-    // Initialize all engines on load
+    // AntV G2 Chart for K-Means Cluster Distribution
+    function renderAntvKmeansChart() {
+      const container = document.getElementById('antv-kmeans-container');
+      if (!container || !window.G2) return;
+      container.innerHTML = '';
+
+      const chartData = kmeansCentroids.map((c, idx) => ({
+        cluster: `กลุ่ม ${idx+1}`,
+        count: kmeansAssignments.filter(a => a === idx).length,
+        color: kmColors[idx]
+      }));
+
+      try {
+        const chart = new G2.Chart({
+          container: 'antv-kmeans-container',
+          autoFit: true,
+          padding: 'auto'
+        });
+
+        chart.options({
+          type: 'interval',
+          data: chartData,
+          encode: {
+            x: 'cluster',
+            y: 'count',
+            color: 'cluster'
+          },
+          scale: {
+            color: {
+              range: kmColors.slice(0, kmeansK)
+            }
+          },
+          axis: {
+            x: { title: 'คลัสเตอร์' },
+            y: { title: 'จำนวนสมาชิก' }
+          },
+          legend: false
+        });
+
+        chart.render();
+      } catch (err) {
+        console.warn('AntV G2 K-Means Chart error:', err);
+      }
+    }
+
+    // Initialize all
     window.addEventListener('DOMContentLoaded', () => {
       loadKnnDataset('slide');
       loadRegDataset('house');
