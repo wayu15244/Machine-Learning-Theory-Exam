@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>รายงานข้อสอบทฤษฎี Machine Learning (สอบ Midterm) - งานกลุ่ม</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- KaTeX for Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background-color: white !important;
+      }
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+      .no-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      h1, h2, h3, h4 {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+    }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      background-color: #f8fafc;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif;
+    }
+    code, pre, .font-mono {
+      font-family: 'Fira Code', monospace;
+    }
+    .math-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      margin: 0.5rem 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="p-0 sm:p-6 md:p-8">
+
+  <div class="max-w-4xl mx-auto bg-white border border-slate-200 shadow-xl p-6 sm:p-12 rounded-2xl print:border-0 print:shadow-none print:p-0">
+
+    <!-- ================================================================= -->
+    <!-- COVER PAGE (PAGE 1) -->
+    <!-- ================================================================= -->
+    <div class="min-h-[92vh] flex flex-col justify-between border-b border-slate-200 pb-8">
+      <!-- Title Area -->
+      <div class="text-center space-y-4 pt-6">
+        <div class="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold tracking-wider uppercase">
+          Theoretical-based Examination (Midterm)
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          รายงานสรุปเนื้อหาทฤษฎีและการคำนวณเชิงตัวเลข<br>
+          <span class="text-orange-600 text-xl sm:text-2xl">Machine Learning: KNN, KNN Regression และ K-Means</span>
+        </h1>
+        <p class="text-slate-600 text-sm max-w-2xl mx-auto">
+          พร้อมการวิเคราะห์ขั้นตอนการทำงาน ตัวอย่างการคำนวณมือตามสไลด์ (Step-by-Step) และการแสดงผลเชิงทัศน์ (Visualizations)
+        </p>
+      </div>
+
+      <!-- Course & Teacher Info -->
+      <div class="my-6 p-5 bg-slate-50 rounded-xl border border-slate-200 text-center space-y-1.5">
+        <div class="text-xs uppercase tracking-widest text-slate-500 font-semibold">รายวิชา Machine Learning (การเรียนรู้ของเครื่อง)</div>
+        <div class="text-base font-bold text-slate-800">อาจารย์ผู้สอน: อาจารย์ ดร. โอฬาริก สุรินต๊ะ (Olarik Surinta)</div>
+        <div class="text-xs text-slate-500">คะแนนเต็ม 15 คะแนน | กำหนดส่ง: วันที่ 7 กันยายน เวลา 17:00 น.</div>
+      </div>
+
+      <!-- 5-Member Team Table -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-800">
+          <span>รายชื่อสมาชิกในกลุ่ม (จำนวน 5 คน ตามข้อกำหนด)</span>
+          <span class="text-orange-700 font-semibold">* ส่งงานโดยหัวหน้ากลุ่มเพียง 1 คน</span>
+        </div>
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-2.5 text-center w-10">#</th>
+                <th class="p-2.5 w-24">บทบาท</th>
+                <th class="p-2.5">ชื่อ - นามสกุล</th>
+                <th class="p-2.5 font-mono">รหัสนิสิต</th>
+                <th class="p-2.5">หน้าที่รับผิดชอบ</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="bg-orange-50/40">
+                <td class="p-2.5 text-center font-bold text-orange-700">1</td>
+                <td class="p-2.5"><span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold">หัวหน้ากลุ่ม</span></td>
+                <td class="p-2.5 font-bold text-slate-900">[ชื่อ-สกุล นิสิตคนที่ 1]</td>
+                <td class="p-2.5 font-mono text-slate-700">[รหัสนิสิต 1]</td>
+                <td class="p-2.5 text-slate-600">รวบรวมรายงาน, ส่งไฟล์ PDF, ตรวจสอบภาพรวม</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 text-center font-semibold text-slate-600">2</td>
+                <td class="p-2.5 text-slate-600">สมาชิก</td>
+                <td class="p-2.5 font-semibold text-slate-800">[ชื่อ-สกุล นิสิตคนที่ 2]</td>
+                <td class="p-2.5 font-mono text-slate-700">[รหัสนิสิต 2]</td>
+                <td class="p-2.5 text-slate-600">สรุปทฤษฎี & คำนวณ KNN Classification</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 text-center font-semibold text-slate-600">3</td>
+                <td class="p-2.5 text-slate-600">สมาชิก</td>
+                <td class="p-2.5 font-semibold text-slate-800">[ชื่อ-สกุล นิสิตคนที่ 3]</td>
+                <td class="p-2.5 font-mono text-slate-700">[รหัสนิสิต 3]</td>
+                <td class="p-2.5 text-slate-600">สรุปทฤษฎี & คำนวณ KNN Regression</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 text-center font-semibold text-slate-600">4</td>
+                <td class="p-2.5 text-slate-600">สมาชิก</td>
+                <td class="p-2.5 font-semibold text-slate-800">[ชื่อ-สกุล นิสิตคนที่ 4]</td>
+                <td class="p-2.5 font-mono text-slate-700">[รหัสนิสิต 4]</td>
+                <td class="p-2.5 text-slate-600">สรุปทฤษฎี & คำนวณ K-Means Clustering</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 text-center font-semibold text-slate-600">5</td>
+                <td class="p-2.5 text-slate-600">สมาชิก</td>
+                <td class="p-2.5 font-semibold text-slate-800">[ชื่อ-สกุล นิสิตคนที่ 5]</td>
+                <td class="p-2.5 font-mono text-slate-700">[รหัสนิสิต 5]</td>
+                <td class="p-2.5 text-slate-600">พัฒนา Interactive Visualizations & GitHub Repo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Links & Repository Info -->
+      <div class="pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center text-xs text-slate-500 gap-2">
+        <div><strong>GitHub Repository:</strong> <code>https://github.com/[username]/Machine-Learning-Theory-Exam</code></div>
+        <div><strong>Online Interactive Dashboard:</strong> <code>https://[username].github.io/Machine-Learning-Theory-Exam/</code></div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 1: KNN CLASSIFICATION (PAGES 2-3) -->
+    <!-- ================================================================= -->
+    <div class="page-break pt-6 space-y-4">
+      <div class="border-b border-slate-200 pb-2">
+        <div class="text-xs font-bold text-orange-600 uppercase tracking-wider">ตอนที่ 1 (5 คะแนน)</div>
+        <h2 class="text-xl font-bold text-slate-900">1. K-Nearest Neighbor (KNN) Classification</h2>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <h3 class="font-bold text-slate-900 text-sm">1.1 ทฤษฎีและแนวคิดพื้นฐาน (Theoretical Concepts)</h3>
+        <p>
+          <strong>K-Nearest Neighbor (KNN)</strong> เป็นอัลกอริทึมการเรียนรู้แบบมีผู้สอน (Supervised Learning) ที่จัดอยู่ในกลุ่ม <strong>Instance-Based Learning (IBL)</strong> หรือ <strong>Lazy Learning</strong> มีลักษณะสำคัญคือ <span class="text-slate-900 font-semibold">ไม่มีขั้นตอนการฝึกฝนเพื่อสร้างแบบจำลองทางคณิตศาสตร์ล่วงหน้า (No explicit model training)</span> แต่จะเก็บรวบรวมตัวอย่างข้อมูลฝึก (Training Instances) ทั้งหมดไว้ในหน่วยความจำ เมื่อมีข้อมูลทดสอบใหม่เข้ามา (Query Point) จึงจะนำข้อมูลใหม่นั้นไปเปรียบเทียบความคล้ายคลึงกับข้อมูลทั้งหมด
+        </p>
+        <p>
+          แนวคิดรากฐานของ KNN อ้างอิงจากหลักการว่า <em>"สิ่งที่คล้ายกันมักจะอยู่ใกล้กัน" (Things that are similar are close to each other)</em> โดยนิยามความคล้ายคลึงผ่านฟังก์ชันวัดระยะห่าง (Distance Metric) ในปริภูมิข้อมูล
+        </p>
+
+        <h3 class="font-bold text-slate-900 text-sm pt-1">1.2 การวัดระยะทางและกระบวนการทำงาน 6 ขั้นตอน</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>ฟังก์ชันวัดระยะห่าง (Distance Metrics):</strong>
+            <ul class="mt-1 space-y-1">
+              <li>• <strong>Euclidean:</strong> \( d(x, y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2} \)</li>
+              <li>• <strong>Manhattan:</strong> \( d(x, y) = \sum_{i=1}^n |x_i - y_i| \)</li>
+              <li>• <strong>Minkowski:</strong> \( d(x, y) = \left(\sum_{i=1}^n |x_i - y_i|^p\right)^{1/p} \)</li>
+            </ul>
+          </div>
+          <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>กระบวนการทำงาน 6 ขั้นตอน:</strong>
+            <ol class="mt-1 space-y-0.5 list-decimal list-inside font-mono text-[11px]">
+              <li>Input New Sample (รับจุดทดสอบ \(x\))</li>
+              <li>Calculate Distance (คำนวณ \(d(x, x_i)\))</li>
+              <li>Sort Distance (เรียงลำดับน้อย \(\rightarrow\) มาก)</li>
+              <li>Select K Nearest (เลือกเพื่อนบ้าน \(K\) ตัวแรก)</li>
+              <li>Majority Vote (ลงคะแนนเสียงคลาส)</li>
+              <li>Prediction (เลือกคลาสคะแนนสูงสุด)</li>
+            </ol>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-slate-900 text-sm pt-1">1.3 ผลกระทบของการเลือกค่า K (Bias-Variance Tradeoff)</h3>
+        <ul class="list-disc list-inside space-y-1 text-xs text-slate-600">
+          <li><strong>K ขนาดเล็ก (เช่น K=1):</strong> โมเดลมีความยืดหยุ่นสูง (Flexible) ขอบเขตการตัดสินใจปรับตัวตามข้อมูลได้ละเอียด แต่ข้อเสียคือไวต่อสัญญาณรบกวนมาก (Noise Sensitive) เกิดความแปรปรวนสูง (High Variance / Overfitting)</li>
+          <li><strong>K ขนาดใหญ่:</strong> โมเดลมีความเสถียร (Stable) ลดผลกระทบของ Outlier ด้วยการใช้คะแนนเสียงจากหลายจุด แต่ข้อเสียคือเสี่ยงต่อ Underfitting ขอบเขตเรียบเกินไป และใช้เวลาคำนวณนาน</li>
+          <li><strong>ข้อควรปฏิบัติ:</strong> ในปัญหาจำแนก 2 คลาส ควรเลือก \(K\) เป็นเลขคี่ เพื่อป้องกันคะแนนเสียงเท่ากัน (Tie)</li>
+        </ul>
+      </div>
+
+      <!-- Calculation Walkthrough: Points A to E -->
+      <div class="no-break space-y-3 pt-2">
+        <h3 class="font-bold text-slate-900 text-sm border-l-4 border-orange-500 pl-2.5">
+          1.4 ตัวอย่างการคำนวณตามสไลด์ (สไลด์หน้า 12-13): จุด A ถึง E
+        </h3>
+        <p class="text-xs text-slate-700">
+          ข้อมูลฝึก: \(A(2,3) \in \text{Class A}\), \(B(3,5) \in \text{Class B}\), \(C(6,8) \in \text{Class B}\), \(D(7,6) \in \text{Class B}\), \(E(5,4) \in \text{Class A}\)
+        </p>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-lg text-xs">
+          <table class="w-full text-left border-collapse font-mono text-[11px]">
+            <thead class="bg-slate-100 text-slate-700 font-bold">
+              <tr>
+                <th class="p-2">จุด</th>
+                <th class="p-2">พิกัด</th>
+                <th class="p-2">Class</th>
+                <th class="p-2">ระยะทางถึง \(P_1(4,5)\)</th>
+                <th class="p-2">ระยะทางถึง \(P_2(6,5)\)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-1.5 font-bold">A</td>
+                <td class="p-1.5">(2, 3)</td>
+                <td class="p-1.5 text-rose-600 font-bold">Class A</td>
+                <td class="p-1.5">\( \sqrt{(4-2)^2+(5-3)^2} = \sqrt{8} \approx 2.828 \) [อันดับ 3]</td>
+                <td class="p-1.5">\( \sqrt{(6-2)^2+(5-3)^2} = \sqrt{20} \approx 4.472 \)</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-1.5 font-bold">B</td>
+                <td class="p-1.5">(3, 5)</td>
+                <td class="p-1.5 text-blue-800 font-bold">Class B</td>
+                <td class="p-1.5 font-bold text-emerald-700">\( \sqrt{(4-3)^2+(5-5)^2} = \sqrt{1} = 1.000 \) [อันดับ 1]</td>
+                <td class="p-1.5">\( \sqrt{(6-3)^2+(5-5)^2} = \sqrt{9} = 3.000 \) [อันดับ 3]</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">C</td>
+                <td class="p-1.5">(6, 8)</td>
+                <td class="p-1.5 text-blue-800 font-bold">Class B</td>
+                <td class="p-1.5">\( \sqrt{(4-6)^2+(5-8)^2} = \sqrt{13} \approx 3.606 \)</td>
+                <td class="p-1.5">\( \sqrt{(6-6)^2+(5-8)^2} = \sqrt{9} = 3.000 \) [อันดับ 3]</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-1.5 font-bold">D</td>
+                <td class="p-1.5">(7, 6)</td>
+                <td class="p-1.5 text-blue-800 font-bold">Class B</td>
+                <td class="p-1.5">\( \sqrt{(4-7)^2+(5-6)^2} = \sqrt{10} \approx 3.162 \)</td>
+                <td class="p-1.5 font-bold text-emerald-700">\( \sqrt{(6-7)^2+(5-6)^2} = \sqrt{2} \approx 1.414 \) [อันดับ 1]</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">E</td>
+                <td class="p-1.5">(5, 4)</td>
+                <td class="p-1.5 text-rose-600 font-bold">Class A</td>
+                <td class="p-1.5 font-bold text-emerald-700">\( \sqrt{(4-5)^2+(5-4)^2} = \sqrt{2} \approx 1.414 \) [อันดับ 2]</td>
+                <td class="p-1.5 font-bold text-emerald-700">\( \sqrt{(6-5)^2+(5-4)^2} = \sqrt{2} \approx 1.414 \) [อันดับ 2]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-2.5 bg-orange-50/70 border border-orange-200 rounded-lg">
+            <strong class="text-orange-900">ผลการทำนายจุด \(P_1(4, 5)\):</strong>
+            <p class="mt-0.5 text-slate-700">
+              เมื่อ \(K=3\) เพื่อนบ้านใกล้สุด 3 ตัวคือ <strong>B (Class B), E (Class A), A (Class A)</strong><br>
+              คะแนนเสียง: Class A ได้ 2 เสียง, Class B ได้ 1 เสียง \(\implies\) <strong>ทำนาย Class A</strong>
+            </p>
+          </div>
+          <div class="p-2.5 bg-blue-50/70 border border-blue-200 rounded-lg">
+            <strong class="text-blue-900">ผลการทำนายจุด \(P_2(6, 5)\):</strong>
+            <p class="mt-0.5 text-slate-700">
+              เมื่อ \(K=3\) เพื่อนบ้านใกล้สุด 3 ตัวคือ <strong>D (Class B), E (Class A)</strong> และ B/C (Class B)<br>
+              คะแนนเสียง: Class B ได้ 2 เสียง ครองเสียงข้างมาก \(\implies\) <strong>ทำนาย Class B</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visualization Image Embedding -->
+      <div class="no-break space-y-2 pt-2">
+        <h3 class="font-bold text-slate-900 text-sm">1.5 ผลลัพธ์และการแสดงผล Visualization (KNN Classification)</h3>
+        <div class="border border-slate-200 rounded-xl overflow-hidden p-2.5 bg-slate-50 text-center">
+          <img src="figures/knn_classification_slide.png" alt="KNN Classification Visualization" class="mx-auto max-h-72 rounded-lg shadow-sm">
+          <p class="text-[11px] text-slate-500 mt-1.5">
+            รูปที่ 1: แผนภาพแสดงจุดข้อมูลฝึกฝน Class A (สีแดง), Class B (สีน้ำเงินเข้ม) และการพยากรณ์จุดทดสอบ P1(4,5) ด้วย K=3
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 2: KNN REGRESSION (PAGES 4-5) -->
+    <!-- ================================================================= -->
+    <div class="page-break pt-6 space-y-4">
+      <div class="border-b border-slate-200 pb-2">
+        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">ตอนที่ 2 (5 คะแนน)</div>
+        <h2 class="text-xl font-bold text-slate-900">2. K-Nearest Neighbor (KNN) Regression</h2>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <h3 class="font-bold text-slate-900 text-sm">2.1 ทฤษฎีและแนวคิดพื้นฐาน (Theoretical Concepts)</h3>
+        <p>
+          <strong>KNN Regression</strong> เป็นอัลกอริทึมสำหรับพยากรณ์ <strong>ค่าตัวเลขต่อเนื่อง (Continuous Target Variable)</strong> เช่น ราคาอสังหาริมทรัพย์, ยอดขาย, หรือราคาหุ้น โดยยังคงใช้หลักการค้นหาเพื่อนบ้านที่มีระยะห่างใกล้ที่สุด \(K\) ตัวในปริภูมิของคุณลักษณะ (Features) แต่เปลี่ยนขั้นตอนการสรุปผลจากการโหวตคลาส มาเป็นการหา <span class="font-semibold text-slate-900">ค่าเฉลี่ย (Mean)</span> หรือ <span class="font-semibold text-slate-900">ค่าเฉลี่ยถ่วงน้ำหนักตามระยะทาง (Distance-Weighted Average)</span>
+        </p>
+
+        <h3 class="font-bold text-slate-900 text-sm pt-1">2.2 รูปแบบการคำนวณผลลัพธ์ (Formulas)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>1. Simple Average (ค่าเฉลี่ยปกติ):</strong>
+            <p class="text-slate-600 mt-0.5">เพื่อนบ้าน \(K\) ตัวมีน้ำหนักเท่ากันทั้งหมด:</p>
+            <div class="math-box font-mono text-xs">
+              \( \hat{y} = \frac{1}{K} \sum_{i=1}^K y_i \)
+            </div>
+          </div>
+          <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong>2. Distance-Weighted Average (ถ่วงน้ำหนัก):</strong>
+            <p class="text-slate-600 mt-0.5">เพื่อนบ้านที่ใกล้กว่ามีอิทธิพลต่อค่าทำนายมากกว่า:</p>
+            <div class="math-box font-mono text-xs">
+              \( \hat{y} = \frac{\sum_{i=1}^K w_i y_i}{\sum_{i=1}^K w_i}, \quad w_i = \frac{1}{d_i^p + \epsilon} \)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculation Walkthrough: House Prices -->
+      <div class="no-break space-y-3 pt-2">
+        <h3 class="font-bold text-slate-900 text-sm border-l-4 border-blue-500 pl-2.5">
+          2.3 ตัวอย่างการคำนวณตามสไลด์ (สไลด์หน้า 27-29): ทำนายราคาบ้าน (Weighted KNN Regression)
+        </h3>
+        <p class="text-xs text-slate-700">
+          จุดทดสอบ: \(x = [72 \text{ ตร.ม.}, 2 \text{ ห้องนอน}]\) กำหนด \(K=5\), \(p=2\), \(\epsilon = 10^{-5}\) คัดเลือกบ้าน 2 ห้องนอนที่ใกล้ที่สุด 5 หลัง:
+        </p>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-lg text-xs">
+          <table class="w-full text-left border-collapse font-mono text-[11px]">
+            <thead class="bg-slate-100 text-slate-700 font-bold">
+              <tr>
+                <th class="p-1.5">Index</th>
+                <th class="p-1.5">พื้นที่ (ตร.ม.)</th>
+                <th class="p-1.5">ห้องนอน</th>
+                <th class="p-1.5">ราคาจริง \(y_i\) (พันบาท)</th>
+                <th class="p-1.5">ระยะทาง \(d_i\)</th>
+                <th class="p-1.5">ค่าน้ำหนัก \(w_i = \frac{1}{d_i^2 + 10^{-5}}\)</th>
+                <th class="p-1.5 text-right">ผลคูณ \(w_i \cdot y_i\)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="bg-orange-50/40">
+                <td class="p-1.5 font-bold">7</td>
+                <td class="p-1.5">70</td>
+                <td class="p-1.5">2</td>
+                <td class="p-1.5 font-semibold">1,200</td>
+                <td class="p-1.5">2.00</td>
+                <td class="p-1.5">\( \frac{1}{4.00001} \approx 0.2500 \)</td>
+                <td class="p-1.5 text-right font-semibold">300.00</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">10</td>
+                <td class="p-1.5">75</td>
+                <td class="p-1.5">2</td>
+                <td class="p-1.5 font-semibold">1,250</td>
+                <td class="p-1.5">3.00</td>
+                <td class="p-1.5">\( \frac{1}{9.00001} \approx 0.1111 \)</td>
+                <td class="p-1.5 text-right font-semibold">138.88</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-1.5 font-bold">9</td>
+                <td class="p-1.5">65</td>
+                <td class="p-1.5">2</td>
+                <td class="p-1.5 font-semibold">1,150</td>
+                <td class="p-1.5">7.00</td>
+                <td class="p-1.5">\( \frac{1}{49.00001} \approx 0.0204 \)</td>
+                <td class="p-1.5 text-right font-semibold">23.46</td>
+              </tr>
+              <tr>
+                <td class="p-1.5 font-bold">3</td>
+                <td class="p-1.5">80</td>
+                <td class="p-1.5">2</td>
+                <td class="p-1.5 font-semibold">1,300</td>
+                <td class="p-1.5">8.00</td>
+                <td class="p-1.5">\( \frac{1}{64.00001} \approx 0.0156 \)</td>
+                <td class="p-1.5 text-right font-semibold">20.28</td>
+              </tr>
+              <tr class="bg-slate-50/50">
+                <td class="p-1.5 font-bold">6</td>
+                <td class="p-1.5">85</td>
+                <td class="p-1.5">2</td>
+                <td class="p-1.5 font-semibold">1,350</td>
+                <td class="p-1.5">13.00</td>
+                <td class="p-1.5">\( \frac{1}{169.00001} \approx 0.0059 \)</td>
+                <td class="p-1.5 text-right font-semibold">7.97</td>
+              </tr>
+            </tbody>
+            <tfoot class="bg-slate-100 font-bold text-slate-800">
+              <tr>
+                <td colspan="5" class="p-1.5 text-right">ผลรวม:</td>
+                <td class="p-1.5">\( \sum w_i = 0.4029 \)</td>
+                <td class="p-1.5 text-right">\( \sum w_i y_i = 490.59 \)</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="p-2.5 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900 font-mono">
+          <strong>ผลลัพธ์การคำนวณราคาพยากรณ์:</strong><br>
+          \( \hat{y} = \frac{\sum_{i=1}^5 w_i y_i}{\sum_{i=1}^5 w_i} = \frac{490.59}{0.4029} \approx \mathbf{1,217.59} \text{ พันบาท (หรือ 1,217,590 บาท)} \)
+        </div>
+      </div>
+
+      <!-- Real-world Colab Experiment: Stock Price Prediction -->
+      <div class="no-break space-y-2 pt-2">
+        <h3 class="font-bold text-slate-900 text-sm">2.4 การทดลองพยากรณ์ราคาหุ้น Apple (AAPL) ด้วย Sliding Window (Colab)</h3>
+        <p class="text-xs text-slate-600">
+          จากการทดลองตามแนวทางของ Colab <code>02_Exercise-KNN-Regression.ipynb</code> ได้จำลองการพยากรณ์ราคาปิดหุ้นด้วย Sliding Window ขนาด 5 วัน (ใช้ราคา 5 วันก่อนหน้าพยากรณ์ราคาของวันถัดไป) และประเมินผลด้วย Mean Absolute Error (MAE):
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+          <div class="border border-slate-200 rounded-xl overflow-hidden p-2 bg-slate-50 text-center">
+            <img src="figures/knn_regression_slide.png" alt="House Regression Curves" class="mx-auto rounded-lg shadow-sm max-h-56">
+            <p class="text-[10px] text-slate-500 mt-1">รูปที่ 2: เส้นถดถอยเปรียบเทียบ Simple vs Distance-Weighted บนโจทย์ราคาบ้าน</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl overflow-hidden p-2 bg-slate-50 text-center">
+            <img src="figures/stock_knn_regression.png" alt="Stock Prediction Results" class="mx-auto rounded-lg shadow-sm max-h-56">
+            <p class="text-[10px] text-slate-500 mt-1">รูปที่ 3: ผลการทำนายราคาหุ้นด้วย KNN Regression (MAE Simple = 1.83, Weighted = 1.88)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: K-MEANS CLUSTERING -->
+    <!-- ================================================================= -->
+    <div class="page-break pt-4 space-y-3">
+      <div class="border-b border-slate-200 pb-1.5">
+        <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">ตอนที่ 3 (5 คะแนน)</div>
+        <h2 class="text-xl font-bold text-slate-900">3. K-Means Clustering (การจัดกลุ่มข้อมูล)</h2>
+      </div>
+
+      <div class="space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <h3 class="font-bold text-slate-900 text-sm">3.1 ทฤษฎีและแนวคิดพื้นฐาน (Theoretical Concepts)</h3>
+        <p>
+          <strong>K-Means Clustering</strong> จัดเป็น <strong>Instance-based Unsupervised Learning</strong> (การเรียนรู้แบบไม่มีผู้สอน) เนื่องจากชุดข้อมูลไม่มีการระบุป้ายกำกับคลาส (Unlabeled Data) อัลกอริทึมนี้เป็นแบบ <em>Partitioning</em> ที่ทำการแบ่งชุดข้อมูลออกเป็น \(K\) กลุ่ม โดยอาศัยระยะห่างระหว่างจุดข้อมูลกับ <span class="font-semibold text-slate-900">จุดศูนย์กลางของกลุ่ม (Centroid)</span> มีเป้าหมายเพื่อลดผลรวมความแปรปรวนหรือระยะทางกำลังสองภายในกลุ่ม (Within-Cluster Sum of Squares - WCSS / Inertia)
+        </p>
+
+        <h3 class="font-bold text-slate-900 text-sm pt-0.5">3.2 ขั้นตอนการทำงาน 5 ขั้นตอน (Algorithm Steps)</h3>
+        <ol class="list-decimal list-inside space-y-0.5 text-xs text-slate-700 font-mono">
+          <li><strong>กำหนดค่า K:</strong> ระบุจำนวนกลุ่มที่ต้องการแบ่งล่วงหน้า</li>
+          <li><strong>กำหนด Initial Centroids:</strong> สุ่มหรือระบุตำแหน่งศูนย์กลางเริ่มต้น \(C_1, C_2, \dots, C_K\)</li>
+          <li><strong>Cluster Assignment:</strong> คำนวณระยะห่างระหว่างข้อมูลทุกจุดกับ Centroid แล้วมอบหมายให้สังกัด Centroid ที่ใกล้ที่สุด</li>
+          <li><strong>Update Centroid:</strong> คำนวณจุดศูนย์กลางใหม่จากค่าเฉลี่ยพิกัดของสมาชิกในกลุ่ม: \( C_j = \left( \frac{1}{|S_j|} \sum_{x \in S_j} x, \; \frac{1}{|S_j|} \sum_{y \in S_j} y \right) \)</li>
+          <li><strong>Iteration:</strong> วนทำซ้ำขั้นตอน 3 และ 4 จนตำแหน่ง Centroid ไม่เปลี่ยนแปลง (Convergence)</li>
+        </ol>
+      </div>
+
+      <!-- Calculation Walkthrough: Points A to F -->
+      <div class="space-y-2 pt-1">
+        <h3 class="font-bold text-slate-900 text-sm border-l-4 border-emerald-500 pl-2.5">
+          3.3 ตัวอย่างการคำนวณตามสไลด์ (สไลด์หน้า 8-11): ข้อมูล 2 มิติ จุด A ถึง F
+        </h3>
+        <p class="text-xs text-slate-700">
+          จุดข้อมูล 6 จุด: \(A(2,3), B(3,4), C(4,5), D(8,8), E(9,9), F(8,10)\) กำหนด \(K=2\) โดยเริ่มที่ \(C_1=(2,3), C_2=(9,9)\):
+        </p>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-lg text-xs">
+          <table class="w-full text-left border-collapse font-mono text-[10.5px]">
+            <thead class="bg-slate-100 text-slate-700 font-bold">
+              <tr>
+                <th class="p-1">จุด</th>
+                <th class="p-1">พิกัด</th>
+                <th class="p-1">ระยะทางถึง \(C_1(2,3)\)</th>
+                <th class="p-1">ระยะทางถึง \(C_2(9,9)\)</th>
+                <th class="p-1 text-right">สังกัดกลุ่ม (รอบที่ 1)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="bg-blue-50/40">
+                <td class="p-1 font-bold">A</td>
+                <td class="p-1">(2, 3)</td>
+                <td class="p-1 font-bold text-blue-700">\( \sqrt{(2-2)^2+(3-3)^2} = 0.00 \)</td>
+                <td class="p-1">\( \sqrt{(2-9)^2+(3-9)^2} = \sqrt{85} \approx 9.22 \)</td>
+                <td class="p-1 text-right font-bold text-blue-700">กลุ่ม 1</td>
+              </tr>
+              <tr class="bg-blue-50/40">
+                <td class="p-1 font-bold">B</td>
+                <td class="p-1">(3, 4)</td>
+                <td class="p-1 font-bold text-blue-700">\( \sqrt{(3-2)^2+(4-3)^2} = \sqrt{2} \approx 1.41 \)</td>
+                <td class="p-1">\( \sqrt{(3-9)^2+(4-9)^2} = \sqrt{61} \approx 7.81 \)</td>
+                <td class="p-1 text-right font-bold text-blue-700">กลุ่ม 1</td>
+              </tr>
+              <tr class="bg-blue-50/40">
+                <td class="p-1 font-bold">C</td>
+                <td class="p-1">(4, 5)</td>
+                <td class="p-1 font-bold text-blue-700">\( \sqrt{(4-2)^2+(5-3)^2} = \sqrt{8} \approx 2.83 \)</td>
+                <td class="p-1">\( \sqrt{(4-9)^2+(5-9)^2} = \sqrt{41} \approx 6.40 \)</td>
+                <td class="p-1 text-right font-bold text-blue-700">กลุ่ม 1</td>
+              </tr>
+              <tr class="bg-emerald-50/40">
+                <td class="p-1 font-bold">D</td>
+                <td class="p-1">(8, 8)</td>
+                <td class="p-1">\( \sqrt{(8-2)^2+(8-3)^2} = \sqrt{61} \approx 7.81 \)</td>
+                <td class="p-1 font-bold text-emerald-700">\( \sqrt{(8-9)^2+(8-9)^2} = \sqrt{2} \approx 1.41 \)</td>
+                <td class="p-1 text-right font-bold text-emerald-700">กลุ่ม 2</td>
+              </tr>
+              <tr class="bg-emerald-50/40">
+                <td class="p-1 font-bold">E</td>
+                <td class="p-1">(9, 9)</td>
+                <td class="p-1">\( \sqrt{(9-2)^2+(9-3)^2} = \sqrt{85} \approx 9.22 \)</td>
+                <td class="p-1 font-bold text-emerald-700">\( \sqrt{(9-9)^2+(9-9)^2} = 0.00 \)</td>
+                <td class="p-1 text-right font-bold text-emerald-700">กลุ่ม 2</td>
+              </tr>
+              <tr class="bg-emerald-50/40">
+                <td class="p-1 font-bold">F</td>
+                <td class="p-1">(8, 10)</td>
+                <td class="p-1">\( \sqrt{(8-2)^2+(10-3)^2} = \sqrt{85} \approx 9.22 \)</td>
+                <td class="p-1 font-bold text-emerald-700">\( \sqrt{(8-9)^2+(10-9)^2} = \sqrt{2} \approx 1.41 \)</td>
+                <td class="p-1 text-right font-bold text-emerald-700">กลุ่ม 2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono">
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong class="font-sans text-slate-800">Centroid ใหม่กลุ่ม 1 {A, B, C}:</strong>
+            <div>\( \bar{x}_1 = \frac{2+3+4}{3} = 3.00, \; \bar{y}_1 = \frac{3+4+5}{3} = 4.00 \)</div>
+            <div class="text-blue-700 font-bold font-sans">\( \implies C_1 \text{ ใหม่} = (3.00, 4.00) \)</div>
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+            <strong class="font-sans text-slate-800">Centroid ใหม่กลุ่ม 2 {D, E, F}:</strong>
+            <div>\( \bar{x}_2 = \frac{8+9+8}{3} \approx 8.33, \; \bar{y}_2 = \frac{8+9+10}{3} = 9.00 \)</div>
+            <div class="text-emerald-700 font-bold font-sans">\( \implies C_2 \text{ ใหม่} = (8.33, 9.00) \)</div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-600">
+          <strong>รอบที่ 2:</strong> คำนวณระยะห่างไปยัง \(C_1(3.00, 4.00)\) และ \(C_2(8.33, 9.00)\) จุดทั้งหมดยังคงสังกัดกลุ่มเดิม สมาชิกไม่เปลี่ยน ตำแหน่ง Centroid จึงคงที่และอัลกอริทึมลู่เข้า (Converged)
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3 (CONT.): K-MEANS VISUALIZATION -->
+    <!-- ================================================================= -->
+    <div class="page-break pt-4 space-y-3">
+      <div class="no-break space-y-2">
+        <h3 class="font-bold text-slate-900 text-sm">3.4 ผลลัพธ์และการแสดงผล Visualization (K-Means Clustering)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="border border-slate-200 rounded-xl overflow-hidden p-2 bg-slate-50 text-center">
+            <img src="figures/kmeans_clustering_slide.png" alt="K-Means Slide Simulation" class="mx-auto rounded-lg shadow-sm max-h-56">
+            <p class="text-[10px] text-slate-500 mt-1">รูปที่ 4: การขยับตำแหน่ง Centroid จากจุดเริ่มต้นไปยังพิกัดเฉลี่ยใหม่ (3.00, 4.00) และ (8.33, 9.00)</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl overflow-hidden p-2 bg-slate-50 text-center">
+            <img src="figures/kmeans_good_vs_poor.png" alt="Good vs Poor Clustering" class="mx-auto rounded-lg shadow-sm max-h-56">
+            <p class="text-[10px] text-slate-500 mt-1">รูปที่ 5: เกณฑ์การประเมิน Good Clustering (เกาะกลุ่มแน่น) vs Poor Clustering (กลุ่มทับซ้อน)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 4: COMPARATIVE SUMMARY & CONCLUSION (PAGE 8) -->
+    <!-- ================================================================= -->
+    <div class="page-break pt-6 space-y-4">
+      <div class="border-b border-slate-200 pb-2">
+        <h2 class="text-xl font-bold text-slate-900">4. บทสรุปเปรียบเทียบและการประยุกต์ใช้งาน (Summary Comparison)</h2>
+      </div>
+
+      <div class="overflow-x-auto border border-slate-200 rounded-xl text-xs">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-slate-100 text-slate-800 font-bold border-b border-slate-200">
+            <tr>
+              <th class="p-2.5">เกณฑ์เปรียบเทียบ</th>
+              <th class="p-2.5 bg-orange-50/80 text-orange-900">1) KNN Classification</th>
+              <th class="p-2.5 bg-blue-50/80 text-blue-900">2) KNN Regression</th>
+              <th class="p-2.5 bg-emerald-50/80 text-emerald-900">3) K-Means Clustering</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">Paradigm</td>
+              <td class="p-2.5">Supervised Learning</td>
+              <td class="p-2.5">Supervised Learning</td>
+              <td class="p-2.5">Unsupervised Learning</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">ชนิดข้อมูลเป้าหมาย</td>
+              <td class="p-2.5">ข้อมูลกลุ่มแยกขาด (Discrete Class)</td>
+              <td class="p-2.5">ข้อมูลตัวเลขต่อเนื่อง (Continuous Target)</td>
+              <td class="p-2.5">ไม่มีข้อมูลเป้าหมาย (No Labels)</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">การสร้างแบบจำลอง</td>
+              <td class="p-2.5">Lazy Learning (ไม่เทรนล่วงหน้า)</td>
+              <td class="p-2.5">Lazy Learning (ไม่เทรนล่วงหน้า)</td>
+              <td class="p-2.5">Iterative Partitioning (วนหา Centroid)</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">เกณฑ์การตัดสินใจ</td>
+              <td class="p-2.5 font-mono text-[11px]">Majority Vote / Weighted Vote</td>
+              <td class="p-2.5 font-mono text-[11px]">\( \frac{1}{K}\sum y_i \) หรือ \( \frac{\sum w_i y_i}{\sum w_i} \)</td>
+              <td class="p-2.5 font-mono text-[11px]">Centroid ที่ใกล้ที่สุด (\(\min \|x-C_j\|^2\))</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">ข้อดีเด่น</td>
+              <td class="p-2.5">เข้าใจง่าย ไม่ต้องเทรน ปรับตัวเร็ว</td>
+              <td class="p-2.5">ทำนายความสัมพันธ์ไม่เป็นเส้นตรงได้ดี</td>
+              <td class="p-2.5">เร็วกับชุดข้อมูลใหญ่ ใช้ทำ EDA ดีเยี่ยม</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 font-semibold text-slate-900">ข้อพึงระวัง</td>
+              <td class="p-2.5">Curse of Dimensionality, ช้าเมื่อข้อมูลโต</td>
+              <td class="p-2.5">ไวต่อ Outlier, ไม่สามารถทำ Extrapolate</td>
+              <td class="p-2.5">ติด Local Minima จาก Initial Centroids</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Real-world Application: Mall Customers from Colab -->
+      <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs">
+        <strong class="text-slate-900 font-bold">ตัวอย่างการประยุกต์ใช้จริงในธุรกิจ (Colab 05_K-Means.ipynb):</strong>
+        <p class="text-slate-600">
+          การวิเคราะห์พฤติกรรมลูกค้าห้างสรรพสินค้า (Customer Segmentation) จากข้อมูล Annual Income และ Spending Score โดยแบ่งเป็น 5 กลุ่ม: 1) ระมัดระวัง (รายได้สูง-ใช้จ่ายต่ำ), 2) มาตรฐาน (ปานกลาง), 3) กลุ่มเป้าหมาย VIP (รายได้สูง-ใช้จ่ายสูง), 4) ประหยัด (รายได้ต่ำ-ใช้จ่ายต่ำ), และ 5) ฟุ่มเฟือย (รายได้ต่ำ-ใช้จ่ายสูง) เพื่อใช้วางแผนการตลาดที่ตรงกลุ่ม
+        </p>
+        <div class="text-center pt-1">
+          <img src="figures/mall_customers_kmeans.png" alt="Mall Customers Clustering" class="mx-auto rounded-lg shadow-sm max-h-52 border border-slate-200">
+          <p class="text-[10px] text-slate-500 mt-1">รูปที่ 6: การแบ่งกลุ่มลูกค้าห้างสรรพสินค้า (Mall Customers) 5 คลัสเตอร์ พร้อมจุดทดสอบลูกค้าใหม่ 5 ราย</p>
+        </div>
+      </div>
+
+      <div class="space-y-1.5 text-xs text-slate-600 leading-relaxed pt-2">
+        <h3 class="font-bold text-slate-900 text-sm">เอกสารอ้างอิง (References):</h3>
+        <ol class="list-decimal list-inside space-y-0.5 pl-1 text-[11px]">
+          <li>สุรินต๊ะ, โอฬาริก. (2567). เอกสารประกอบการบรรยายรายวิชา Machine Learning: เรื่อง K-Nearest Neighbor (KNN), KNN Regression และ K-Means Clustering.</li>
+          <li>Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. <em>Journal of Machine Learning Research</em>, 12, 2825-2830.</li>
+          <li>Hastie, T., Tibshirani, R., & Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Springer.</li>
+        </ol>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+</body>
+</html>
