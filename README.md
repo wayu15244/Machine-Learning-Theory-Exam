@@ -13,7 +13,9 @@
 ## 🌐 ลิงก์ผลงานออนไลน์ (Live Demos & Artifacts)
 
 - **Interactive Visualization Dashboard (GitHub Pages):**  
-  `https://[username].github.io/Machine-Learning-Theory-Exam/` *(เปิดใช้งานผ่านไฟล์ `index.html`)*
+  [https://wayu15244.github.io/Machine-Learning-Theory-Exam/](https://wayu15244.github.io/Machine-Learning-Theory-Exam/)
+- **GitHub Repository:**  
+  [https://github.com/wayu15244/Machine-Learning-Theory-Exam](https://github.com/wayu15244/Machine-Learning-Theory-Exam)
 - **รายงานฉบับสมบูรณ์ (PDF File พร้อมส่ง):**  
   [`Machine_Learning_Theory_Exam.pdf`](Machine_Learning_Theory_Exam.pdf)
 
