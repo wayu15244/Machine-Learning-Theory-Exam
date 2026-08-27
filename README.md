@@ -2,15 +2,10 @@
 
 **รายวิชา:** Machine Learning (การเรียนรู้ของเครื่อง)  
 **อาจารย์ผู้สอน:** อาจารย์ ดร. โอฬาริก สุรินต๊ะ (Olarik Surinta)  
-**คะแนนเต็ม:** 15 คะแนน (กำหนดส่ง 7 กันยายน เวลา 17:00 น.)  
-**เกณฑ์คะแนน:**
-- Visualization ของ KNN = 5 คะแนน
-- Visualization ของ KNN Regression = 5 คะแนน
-- Visualization ของ K-Means = 5 คะแนน
 
 ---
 
-## 🌐 ลิงก์ผลงานออนไลน์ (Live Demos & Artifacts)
+##  ลิงก์ผลงานออนไลน์ (Live Demos & Artifacts)
 
 - **Interactive Visualization Dashboard (GitHub Pages):**  
   [https://wayu15244.github.io/Machine-Learning-Theory-Exam/](https://wayu15244.github.io/Machine-Learning-Theory-Exam/)
@@ -21,7 +16,7 @@
 
 ---
 
-## 👥 รายชื่อสมาชิกในกลุ่ม (5 คน)
+##  รายชื่อสมาชิกในกลุ่ม (5 คน)
 
 > **หมายเหตุ:** กำหนดให้หัวหน้ากลุ่มเป็นผู้ส่งงานเพียง 1 คนผ่านระบบ Google Classroom
 
@@ -34,7 +29,7 @@
 
 ---
 
-## 🧠 สรุปสาระสำคัญทางทฤษฎี (Theoretical Summary)
+##  สรุปสาระสำคัญทางทฤษฎี (Theoretical Summary)
 
 ### 1. K-Nearest Neighbor (KNN) Classification (5 คะแนน)
 - **ประเภทการเรียนรู้:** Supervised Learning (Instance-Based / Lazy Learning)
@@ -89,7 +84,7 @@
 
 ---
 
-## 📁 โครงสร้างไฟล์ในโปรเจกต์ (Project Structure)
+##  โครงสร้างไฟล์ในโปรเจกต์ (Project Structure)
 
 ```text
 Theory part/
@@ -112,36 +107,6 @@ Theory part/
     ├── kmeans_clustering.py
     └── mall_customers_kmeans.py
 ```
-
----
-
-## 🚀 ขั้นตอนการนำขึ้น GitHub และเปิดใช้งาน GitHub Pages
-
-### 1. เริ่มต้น Git และ Commit โค้ด
-```bash
-git init
-git add .
-git commit -m "Complete ML Theory Midterm Project with Interactive Visualizations and PDF Report"
-```
-
-### 2. ลิงก์กับ GitHub Repository
-```bash
-# เปลี่ยน [username] เป็นชื่อบัญชี GitHub ของหัวหน้ากลุ่ม
-git branch -M main
-git remote add origin https://github.com/[username]/Machine-Learning-Theory-Exam.git
-git push -u origin main
-```
-
-### 3. เปิดใช้งาน GitHub Pages เพื่อสร้างลิงก์ออนไลน์
-1. ไปที่หน้า GitHub Repository ของคุณ
-2. คลิกที่แถบ **Settings** ด้านบน
-3. ที่เมนูด้านซ้าย เลือก **Pages**
-4. ในส่วน **Build and deployment** $\rightarrow$ **Branch**:
-   - เลือก Branch: `main`
-   - เลือก Folder: `/ (root)`
-5. กดปุ่ม **Save**
-6. รอประมาณ 1-2 นาที คุณจะได้รับ URL ออนไลน์ เช่น:  
-   `https://[username].github.io/Machine-Learning-Theory-Exam/`
 
 ---
 
